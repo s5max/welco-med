@@ -13,7 +13,10 @@
 	color: #fff !important;
 	/*text-shadow: 0px 0px 2px #4c4971;*/
 	text-shadow: 0px -1.2px 1px #323044, 0px 1.2px 1px #323044, 1.2px 0px 0 #323044, -1.2px 0px 1px #323044;}
-
+.wcomlink:hover {font-size: 18px;
+	color: #fff !important;
+	/*text-shadow: 0px 0px 2px #4c4971;*/
+	text-shadow: 0px -1.2px 1px #ff3700, 0px 1.2px 1px #ff3700, 1.2px 0px 0 #ff3700, -1.2px 0px 1px #ff3700 !important;}
 .hwelcomed {
 	text-shadow: 1px 1px 8px #404040;
 }
