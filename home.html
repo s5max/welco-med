@@ -139,10 +139,11 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title w-100">Resrervation Form</h4>
+                            <h4 class="modal-title w-100">Formulaire d'inscription</h4>
                         </div>
                         <!--Body-->
-                        <div class="modal-body">
+                        <div class="modal-body" id="result">
+<!--
                             <div class="md-form">
                                 <input type="text" id="form22" class="form-control">
                                 <label for="form42">Your Full Name</label>
@@ -157,22 +158,84 @@
                                 <input type="text" id="form32" class="form-control">
                                 <label for="form34">Your Phone Number</label>
                             </div>
+-->
+                            <form id="sub" method="post" enctype="multipart/form-data">
+                            <select class="mdb-select colorful-select dropdown-default" name="profession1" id="profession1">
+                                <option value="none">Choisir son métier</option>
+								<option value="Chirurgien-Dentiste">Chirurgien-Dentiste</option>
+								<option value="Infirmier/Infirmière">Infirmier/Infirmière</option>
+								<option value="Kinésithérapeute">Kinésithérapeute</option>
+								<option value="Médecin">Médecin</option>
+								<option value="Orthophoniste">Orthophoniste</option>
+								<option value="Osthéopate">Osthéopate</option>
+								<option value="Pédiatre">Pédiatre</option>
+                            </select>
+                            
+                            <div class="md-form">
+                                <input type="text" name="firstname" id="firstname" class="form-control">
+                                <label for="firstname">Votre Nom</label>
+                            </div>
+                            
+                            <div class="md-form">
+                                <input type="text" name="lastname" id="lastname" class="form-control">
+                                <label for="lastnamelastname">Votre Prénom</label>
+                            </div>
+                               
+                            <div class="md-form">
+                                <input type="text" name="address" id="address" class="form-control">
+                                <label for="address">Adresse</label>
+                            </div>
+                            
+                            <div class="md-form">
+                                <input type="text" name="zipcode" id="zipcode" class="form-control">
+                                <label for="zipcode">Code Postal</label>
+                            </div>
+                               
+                            <div class="md-form">
+                                <input type="text" name="city" id="city" class="form-control">
+                                <label for="city">Ville</label>
+                            </div>
+                            
+                            <div class="md-form">
+                                <input type="text" name="department" id="department" class="form-control">
+                                <label for="department">Département</label>
+                            </div>
+                               
+                            <div class="md-form">
+                                <input type="text" name="telephone" id="telephone" class="form-control">
+                                <label for="telephone">Téléphone</label>
+                            </div>
+                            
+                            <div class="md-form">
+                                <input type="text" name="email" id="email" class="form-control">
+                                <label for="email">Email</label>
+                            </div>
+                            
+                            <div class="md-form">
+                                <input type="password" name="password" id="password" class="form-control">
+                                <label for="password">Mot de Passe</label>
+                            </div>
 
+<!--
                             <select class="mdb-select colorful-select dropdown-default">
                                 <option value="1">One Person</option>
                                 <option value="2">Two Persons</option>
                                 <option value="3">Three Persons</option>
                                 <option value="4">More</option>
                             </select>
+-->
 
                             <div class="text-center">
-                                <button class="btn btn-lg btn-rounded btn-primary">Send Information</button>
-                                <p class="text-muted">*Some dummy text goes here.</p>
+                                <button class="btn btn-lg btn-rounded btn-primary" id="sbt">Send Information</button>
+<!--                                <p class="text-muted">*Some dummy text goes here.</p>-->
 
+<!--
                                 <div class="call">
                                     <p>Or you prefer book a table by phone? <span class="cf-phone"><i class="fa fa-phone"></i>+01 234 565 280</span></p>
                                 </div>
+-->
                             </div>
+							</form>
                         </div>
                         <!--Footer-->
                         <div class="modal-footer">
@@ -764,6 +827,43 @@
             });
 
         </script>
+        
+        <script>
+			
+			var sbt = document.getElementById('sbt');
+		
+			$('#sbt').click(function(e){
+				
+				e.preventDefault();
+					
+				$.ajax({
+					  type: 'post',
+					  url: 'check.php',
+					  data: { 
+
+						  profession    : $('#profession1').val(),
+						  firstname		: $('#firstname').val(),
+						  lastname		: $('#lastname').val(),
+						  address		: $('#address').val(),
+						  zipcode		: $('#zipcode').val(),
+						  city			: $('#city').val(),
+						  department	: $('#department').val(),
+						  telephone		: $('#telephone').val(),
+						  email			: $('#email').val(),
+						  password		: $('#password').val(),
+
+					  }
+
+				}).done(function(o){
+					console.log(o);
+					$('#result').html('<form id="sub" method="post" enctype="multipart/form-data">'+o+'<div class="text-center"><button class="btn btn-lg btn-rounded btn-primary" id="sbt">Send Information</button>');
+
+				});
+				
+			});
+			
+			
+		</script>
 
     </body>
 
