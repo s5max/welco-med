@@ -1,5 +1,8 @@
 .welcologo {
-    height: 3em;}
+    height: 2em;
+    transition: .3s;}
+.intro-page  .navbar:not(.top-nav-collapse) .welcologo {
+    height: 3em; }
 .testcolor {
     color: rgba(255, 179, 0, 0.6);}
 .intro-page  .navbar:not(.top-nav-collapse) .nav-item a {
