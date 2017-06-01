@@ -29,6 +29,9 @@ input[type=text], select {
           text-align-last: center;
           width: 400px;}
 
+.normalheader {
+  height: auto !important;}
+  
 /*----------------------------------
 		FORMS BOOTSTRAP 3.3.7
 ------------------------------------*/
