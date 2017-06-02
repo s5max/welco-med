@@ -2,12 +2,13 @@
 
 	require('include/connect.php');
 	
-	$select = $bdd->prepare('SELECT profession_id,offer_id,city_id FROM ads');
+	$select = $bdd->prepare('SELECT profession_id,offer_id,city_id FROM ad');
 
 	if($select->execute()){
 
 		$ads = $select->fetchAll(PDO::FETCH_ASSOC);
-
+	
+		$adNb = count($ads);
 	$professionList = [];
 	$offerList = [];
 	$cityList = [];
@@ -23,12 +24,6 @@
 	$professionList = array_unique($professionList);
 	$offerList = array_unique($offerList);
 	$cityList = array_unique($cityList);
-			
-var_dump($professionList);
-		echo'<br>';
-var_dump($offerList);
-		echo'<br>';
-var_dump($cityList);
 
 	}
 
@@ -46,6 +41,17 @@ var_dump($cityList);
 
 		$offerAvailable = $select->fetchAll(PDO::FETCH_ASSOC);
 
+		$offer = [];
+		$demand = [];
+		foreach($offerAvailable as $value){
+			if($value['id']<5){
+				$offer[] = [$value['id'],$value['type']];
+			}
+			elseif($value['id']>4){
+				$demand[] = [$value['id'],$value['type']];
+			}
+		}
+		
 	}
 
 	$select = $bdd->prepare('SELECT * FROM city');
@@ -287,7 +293,7 @@ var_dump($cityList);
                     <h1 class="text-center font-up font-bold mt-1 wow fadeIn" data-wow-delay="0.2s">Vivez votre passion au soleil !</h1><br>
 
                     <!--Section description-->
-                    <p class="text-center font-up font-bold mb-2 wow fadeIn" data-wow-delay="0.2s">Découvrez nos offres !</p>
+                    <p class="text-center font-up font-bold mb-2 wow fadeIn" data-wow-delay="0.2s">Rechercher parmi nos <?=$adNb.' annonces en cours de validité'?></p>
 
                     <!-- Recherche -->
                     
@@ -314,12 +320,10 @@ var_dump($cityList);
                                             <select name="type" id="type" class="form-control">
                                                 <option value="0" selected disabled>-- Type d'annonce --</option>
                                                 <!-- On réutilise notre array() ci-dessus -->
-                                                <?php foreach ($offerAvailable as $key => $value): 
-														if(in_array($value['id'],$offerList)){
-												?>
-                                                    <option value="<?=$value['id'];?>"><?=$value['kind'].' : '.$value['type'];?></option>
-                                                <?php 	}
-														endforeach; ?>
+                                                <optgroup label="Offre">
+                                                <?php foreach($offer as $value){if(in_array($value[0],$offerList)){echo'<option value="'.$value[0].'">'.$value[1].'</option>';}} ?>
+                                                <optgroup label="Demande">
+                                                <?php foreach($offer as $value){if(in_array($value[0],$offerList)){echo'<option value="'.$value[0].'">'.$value[1].'</option>';}} ?>
                                             </select>
                                         </div>
                                     

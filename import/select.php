@@ -8,7 +8,7 @@
 		
 //		if(isset($post['profession_id']) && isset($post['offer_id']) && isset($post['city_id'])){
 //			
-//			$select = $bdd->prepare('SELECT * FROM ads WHERE profession_id=:profession_id AND offer_id=:offer_id AND city_id=:city_id');
+//			$select = $bdd->prepare('SELECT * FROM ad WHERE profession_id=:profession_id AND offer_id=:offer_id AND city_id=:city_id');
 //			$select->bindValue(':profession_id',$post['profession_id']);
 //			$select->bindValue(':offer_id',$post['offer_id']);
 //			$select->bindValue(':city_id',$post['city_id']);
@@ -28,35 +28,35 @@
 //			if(isset($post['city_id'])){$city_id=$post['city_id'];}else{$city_id=0;}
 //			
 			if($post['profession_id']>0 && $post['offer_id']>0 && $post['city_id']>0){
-			$select = $bdd->prepare('SELECT * FROM ads WHERE profession_id=:profession_id AND offer_id=:offer_id AND city_id=:city_id');
+			$select = $bdd->prepare('SELECT * FROM ad WHERE profession_id=:profession_id AND offer_id=:offer_id AND city_id=:city_id');
 			$select->bindValue(':profession_id',$post['profession_id'],PDO::PARAM_INT);
 			$select->bindValue(':offer_id',$post['offer_id'],PDO::PARAM_INT);
 			$select->bindValue(':city_id',$post['city_id'],PDO::PARAM_INT);
 			}
 			elseif($post['profession_id']>0 && $post['offer_id']==0 && $post['city_id']==0){
-			$select = $bdd->prepare('SELECT * FROM ads WHERE profession_id=:profession_id');
+			$select = $bdd->prepare('SELECT * FROM ad WHERE profession_id=:profession_id');
 			$select->bindValue(':profession_id',$post['profession_id'],PDO::PARAM_INT);
 			}
 			elseif($post['profession_id']==0 && $post['offer_id']>0 && $post['city_id']==0){
-			$select = $bdd->prepare('SELECT * FROM ads WHERE offer_id=:offer_id');
+			$select = $bdd->prepare('SELECT * FROM ad WHERE offer_id=:offer_id');
 			$select->bindValue(':offer_id',$post['offer_id'],PDO::PARAM_INT);
 			}
 			elseif($post['profession_id']==0 && $post['offer_id']==0 && $post['city_id']>0){
-			$select = $bdd->prepare('SELECT * FROM ads WHERE city_id=:city_id');
+			$select = $bdd->prepare('SELECT * FROM ad WHERE city_id=:city_id');
 			$select->bindValue(':city_id',$post['city_id'],PDO::PARAM_INT);
 			}
 			elseif($post['profession_id']>0 && $post['offer_id']>0 && $post['city_id']==0){
-			$select = $bdd->prepare('SELECT * FROM ads WHERE profession_id=:profession_id AND offer_id=:offer_id');
+			$select = $bdd->prepare('SELECT * FROM ad WHERE profession_id=:profession_id AND offer_id=:offer_id');
 			$select->bindValue(':profession_id',$post['profession_id'],PDO::PARAM_INT);
 			$select->bindValue(':offer_id',$post['offer_id'],PDO::PARAM_INT);
 			}
 			elseif($post['profession_id']>0 && $post['offer_id']==0 && $post['city_id']>0){
-			$select = $bdd->prepare('SELECT * FROM ads WHERE profession_id=:profession_id AND city_id=:city_id');
+			$select = $bdd->prepare('SELECT * FROM ad WHERE profession_id=:profession_id AND city_id=:city_id');
 			$select->bindValue(':profession_id',$post['profession_id'],PDO::PARAM_INT);
 			$select->bindValue(':city_id',$post['city_id'],PDO::PARAM_INT);
 			}
 			elseif($post['profession_id']==0 && $post['offer_id']>0 && $post['city_id']>0){
-			$select = $bdd->prepare('SELECT * FROM ads WHERE offer_id=:offer_id AND city_id=:city_id');
+			$select = $bdd->prepare('SELECT * FROM ad WHERE offer_id=:offer_id AND city_id=:city_id');
 			$select->bindValue(':offer_id',$post['offer_id'],PDO::PARAM_INT);
 			$select->bindValue(':city_id',$post['city_id'],PDO::PARAM_INT);
 			}
@@ -71,7 +71,7 @@
 		}
 //		elseif(isset($post['profession_id'])){
 //
-//			$select = $bdd->prepare('SELECT * FROM ads WHERE profession_id=:id');
+//			$select = $bdd->prepare('SELECT * FROM ad WHERE profession_id=:id');
 //			$select->bindValue(':id',$post['profession_id']);
 //
 //			if($select->execute()){
@@ -85,7 +85,7 @@
 //		}
 //		elseif(isset($post['offer_id'])){
 //		
-//			$select = $bdd->prepare('SELECT * FROM ads WHERE offer_id=:id');
+//			$select = $bdd->prepare('SELECT * FROM ad WHERE offer_id=:id');
 //			$select->bindValue(':id',$post['offer_id']);
 //
 //			if($select->execute()){
@@ -98,7 +98,7 @@
 //		}
 //		elseif(isset($post['city_id'])){
 //		
-//			$select = $bdd->prepare('SELECT * FROM ads WHERE city_id=:id');
+//			$select = $bdd->prepare('SELECT * FROM ad WHERE city_id=:id');
 //			$select->bindValue(':id',$post['city_id']);
 //
 //			if($select->execute()){
