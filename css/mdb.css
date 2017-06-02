@@ -8780,8 +8780,11 @@ button, html [type="button"], [type="reset"], [type="submit"] {
 
   .bienvenue {
     background-color: #ff9100 !important;
+    border-color: #ff5f00 !important;
   }
-
+  .bienvenue:hover, .bienvenue:focus {
+  background-color: #ff5f00 !important;
+  }
   .fa-heartbeat {
     color: #ff9100 !important;
   }
