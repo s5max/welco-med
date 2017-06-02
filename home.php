@@ -2,11 +2,57 @@
 
 	require('include/connect.php');
 	
+	$select = $bdd->prepare('SELECT profession_id,offer_id,city_id FROM ads');
+
+	if($select->execute()){
+
+		$ads = $select->fetchAll(PDO::FETCH_ASSOC);
+
+	$professionList = [];
+	$offerList = [];
+	$cityList = [];
+		
+	foreach($ads as $a){
+
+		$professionList[]=$a['profession_id'];
+		$offerList[]=$a['offer_id'];
+		$cityList[]=$a['city_id'];
+
+	}
+	
+	$professionList = array_unique($professionList);
+	$offerList = array_unique($offerList);
+	$cityList = array_unique($cityList);
+			
+var_dump($professionList);
+		echo'<br>';
+var_dump($offerList);
+		echo'<br>';
+var_dump($cityList);
+
+	}
+
 	$select = $bdd->prepare('SELECT * FROM profession');
 
 	if($select->execute()){
 
-		$data = $select->fetchAll(PDO::FETCH_ASSOC);
+		$professionAvailable = $select->fetchAll(PDO::FETCH_ASSOC);
+
+	}
+
+	$select = $bdd->prepare('SELECT * FROM offer');
+
+	if($select->execute()){
+
+		$offerAvailable = $select->fetchAll(PDO::FETCH_ASSOC);
+
+	}
+
+	$select = $bdd->prepare('SELECT * FROM city');
+
+	if($select->execute()){
+
+		$cityAvailable = $select->fetchAll(PDO::FETCH_ASSOC);
 
 	}
 
@@ -160,7 +206,7 @@
 								
 								<select class="mdb-select colorful-select dropdown-default" name="profession1" id="profession1">
 								<option value="none">--- Choisir votre proffession ---</option>
-								<?php foreach($data as $value){ echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';} ?>
+								<?php foreach($professionAvailable as $value){ echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';} ?>
 								</select>
 								
 								<div class="md-form">
@@ -184,7 +230,7 @@
 								</div>
 
 								<div class="md-form">
-									<input type="text" name="city" id="city" class="form-control">
+									<input type="text" name="city" id="city1" class="form-control">
 									<label for="city">Ville</label>
 								</div>
 
@@ -251,34 +297,45 @@
                                 <div class="form-group">
                                         <div class="col-sm-4">
                                             <select name="profession" id="profession" class="form-control">
-                                                <option value="" selected disabled>-- Profession --</option>
+                                                <option value="0" selected disabled>-- Profession --</option>
                                                 <!-- On réutilise notre array() ci-dessus -->
-                                                <?php foreach ($specialityAvailable as $key => $value): ?>
-                                                    <option value="<?=$key;?>"><?=$value;?></option>
-                                                <?php endforeach; ?>
+                                                <?php foreach ($professionAvailable as $value): 
+														if(in_array($value['id'],$professionList)){
+												?>
+                                                    <option value="<?=$value['id'];?>"><?=$value['name'];?></option>
+                                                <?php 	}
+													   endforeach; 
+												?>
                                             </select>
                                         </div>
                                             
 
                                         <div class="col-sm-4">
                                             <select name="type" id="type" class="form-control">
-                                                <option value="" selected disabled>-- Type d'offre --</option>
+                                                <option value="0" selected disabled>-- Type d'annonce --</option>
                                                 <!-- On réutilise notre array() ci-dessus -->
-                                                <?php foreach ($specialityAvailable as $key => $value): ?>
-                                                    <option value="<?=$key;?>"><?=$value;?></option>
-                                                <?php endforeach; ?>
+                                                <?php foreach ($offerAvailable as $key => $value): 
+														if(in_array($value['id'],$offerList)){
+												?>
+                                                    <option value="<?=$value['id'];?>"><?=$value['kind'].' : '.$value['type'];?></option>
+                                                <?php 	}
+														endforeach; ?>
                                             </select>
                                         </div>
                                     
 
                                         <div class="col-sm-4">
-                                        <select name="city" id="city" class="form-control">
-                                            <option value="" selected disabled>-- Commune --</option>
-                                            <!-- On réutilise notre array() ci-dessus -->
-                                            <?php foreach ($specialityAvailable as $key => $value): ?>
-                                                <option value="<?=$key;?>"><?=$value;?></option>
-                                            <?php endforeach; ?>
-                                        </select>
+											<select name="city" id="city" class="form-control">
+												<option value="0" selected disabled>-- Commune --</option>
+												<!-- On réutilise notre array() ci-dessus -->
+												<?php foreach ($cityAvailable as $key => $value): 
+														if(in_array($value['id'],$cityList)){
+												?>
+													<option value="<?=$value['id'];?>"><?=$value['name'];?></option>
+												<?php	}
+															endforeach; 
+												?>
+											</select>
                                         </div>
                                 
                             
@@ -286,6 +343,7 @@
 
                         </div>
                             <div class="text-center">
+                               <p id="nbAd"></p>
                                 <div class="col-sm-12">
                                     <button type="submit" class="btn btn-primary">Rechercher</button>
                                 </div>
@@ -807,8 +865,68 @@
         </script>
         
         <script>
+			
+			$('#profession').on('change',function(){
+				
+				$.ajax({
+					
+					type	: 'post',
+					url		: '/GIT/welco-med/import/select.php',
+					data	: {
+							profession_id	: $('#profession').val(),
+							offer_id	: $('#type').val(),
+							city_id	: $('#city').val()
+					},
+					success	: function(r){
+						console.log(r);
+						$('#nbAd').html(r);
+					}
+				});
+			});
+			
+/////////////////////////////////////////
+			
+			$('#type').on('change',function(){
+				
+				$.ajax({
+					
+					type	: 'post',
+					url		: '/GIT/welco-med/import/select.php',
+					data	: {
+							profession_id	: $('#profession').val(),
+							offer_id	: $('#type').val(),
+							city_id	: $('#city').val()	
+					},
+					success	: function(r){
+						console.log(r);
+						$('#nbAd').html(r);
+					}
+				});
+			});
+			
+/////////////////////////////////////////
+			
+			$('#city').on('change',function(){
+				
+				$.ajax({
+					
+					type	: 'post',
+					url		: '/GIT/welco-med/import/select.php',
+					data	: {
+							profession_id	: $('#profession').val(),
+							offer_id	: $('#type').val(),
+							city_id	: $('#city').val()	
+					},
+					success	: function(r){
+						console.log(r);
+						$('#nbAd').html(r);
+					}
+				});
+			});
+			
+//////////////////////////////////////////////////////////
 		
-			$('#sbt').click(function(e){
+			$('#sbt').on('click', function(e){
 				
 				e.preventDefault();
 				
@@ -831,7 +949,7 @@
 							  lastname		: $('#lastname').val(),
 							  address		: $('#address').val(),
 							  zipcode		: $('#zipcode').val(),
-							  city			: $('#city').val(),
+							  city			: $('#city1').val(),
 							  department	: $('#department').val(),
 							  telephone		: $('#telephone').val(),
 							  email			: $('#email').val(),

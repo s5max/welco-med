@@ -235,7 +235,7 @@ if($error === 0){
 }
 ?>
 <script>
-		
+	
 			$('#sbt').click(function(e){
 				
 				e.preventDefault();
@@ -251,7 +251,7 @@ if($error === 0){
 						  lastname		: $('#lastname').val(),
 						  address		: $('#address').val(),
 						  zipcode		: $('#zipcode').val(),
-						  city			: $('#city').val(),
+						  city			: $('#city1').val(),
 						  department	: $('#department').val(),
 						  telephone		: $('#telephone').val(),
 						  email			: $('#email').val(),
