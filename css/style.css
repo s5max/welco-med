@@ -27,9 +27,10 @@
 }
 
 input[type=text], select {
-          text-align: center;
-          text-align-last: center;
-          width: 400px;}
+  text-align: center;
+  text-align-last: center;
+  width: 400px;
+  background-color: #fff !important;}
 
 .normalheader {
   height: auto !important;}
@@ -51,7 +52,13 @@ input[type=text], select {
   background-color: #90A4AE;}
 .profession {
   color: #fff !important;}
-  .normaltitle{padding-top: 20px !important;}
+.normaltitle{
+  width: 100%;
+  padding-top: 20px !important;
+  text-align: center;}
+.normaltitlefoot {
+  font-size: 1.25rem !important;
+  color: #fff;}
 /*----------------------------------
 		FORMS BOOTSTRAP 3.3.7
 ------------------------------------*/
@@ -1189,3 +1196,20 @@ fieldset[disabled] .btn-link:focus {
 .btn-block + .btn-block {
   margin-top: 5px;
 }
+/*----------------------------------
+    CARDS
+------------------------------------*/
+.card .footer .btn-simple {
+  margin-top: -6px !important;}
+.normalbutton {
+  opacity: .8;
+  color: #666666 !important;
+  background-color: transparent;
+  box-shadow: none;}
+.normalbutton:hover {
+  opacity: .8;
+  color: #000 !important;
+  background-color: transparent;
+  box-shadow: none;}
+.normali {
+  text-transform: lowercase;}

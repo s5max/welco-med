@@ -187,10 +187,7 @@ if($select->execute()){
                 <section class="section mt-4 feature-box col-xs-12 normalsection" id="features">
 
                     <!--Secion heading-->
-                    <h1 class="text-center font-up font-bold mt-1 wow fadeIn" data-wow-delay="0.2s">&nbsp;</h1><br>
-
-                    <!--Section description-->
-                    <p class="text-center font-up font-bold mb-2 wow fadeIn" data-wow-delay="0.2s">Découvrez nos offres !</p>
+                    <h1 class="text-center font-up font-bold mt-1 wow fadeIn" data-wow-delay="0.2s">Découvrez nos offres !</h1><br>
 
                     <!-- Recherche -->
                     
@@ -255,115 +252,112 @@ if($select->execute()){
 
             <!--Second container-->
             <div class="container-full whitesection">
-            <div class="container">
+                <div class="container">
 
-                <!--Section: About-->
-                <section class="section about mb-4" id="about"> 
+                    <!--Section: About-->
+                    <section class="section about mb-4" id="about"> 
 
-                    <div class="row">
-        <h1 class="title normaltitle">
-            Résultat de votre recherche
+                        <div class="row">
+                            <h1 class="title normaltitle">Résultat de votre recherche</h1>
+                                <div class="col-sm-12">
+                                    <div class="col-md-12">
 
-        </h1>
-        <div class="col-sm-12">
-        <div class="col-md-12">
+                                    <?php
+                                        
+                                        foreach($data as $v){
 
-<?php
+                                            $details = (array)json_decode($v['details']);
+                                    ?>
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="card-container manual-flip">
+                                            <div class="card">
+                                                <div class="front">
+                                                
+                                                    <div class="cover normalcover">
+                                                        
+                                                        <h3 class="name"><?= $details['name']?></h3>
+                                                            <p class="profession"><?= $details['profession']?></p>
+                                                   </div>
+
+
+                                                    <div class="content">
+                                                        <div class="main">
+                                                            <p class="text-center"><strong><?/*= $v['title']*/?></strong><br><?/*= $v['kind']*/?><strong><?= $v['type']?></strong><br>Date de publication : <br><?= $details['department']?>, <?= $details['city']?><br><?= $v['description']?></p>
+                                                        </div>
+                                                        <div class="footer footfront">
+                                                            <button class="btn btn-simple normalbutton" onclick="rotateCard(this)">
+                                                                <i class="fa fa-mail-forward"></i> V<span class="normali">oir les détails de l'offre</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- end front panel -->
+                                                <div class="back">
+                                                    <div class="header">
+                                                        <h5 class="motto"><?= $v['title']?></h5>
+                                                    </div>
+                                                    <div class="content">
+                                                        <div class="main">
+                                                            <p>Heures d'activités : <?=$details['opening'].' à '.$details['closing']?></p>
+                                                            <p class="text-center"><?= $v['description']?><br>Domicile/Cabinet<br><?= $details['exercise']?><br>Nbre de praticiens : <?= $details['nbPraticioner']?><br>Logiciel utilisé : <?=$details['software']?></p>
+
+                                                            <div class="stats-container">
+                                                               <div class="stats">
+                                                                    <h4>CA</h4>
+                                                                    <p>
+                                                                        Annuel
+                                                                    </p>
+                                                                </div>
+                                                                <div class="stats">
+                                                                    <h4><?=$details['patient/day']?></h4>
+                                                                    <p>
+                                                                        Patients/jour
+                                                                    </p>
+                                                                </div>
+                                                                <div class="stats">
+                                                                    <h4><?=$details['patient/day']?></h4>
+                                                                    <p>
+                                                                        Rétrocession
+                                                                    </p>
+                                                                </div>
+                                                                <div class="stats">
+                                                                    <h4><?=$details['hour/week']?></h4>
+                                                                    <p>
+                                                                        Hrs/semaine
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="footer">
+                                                        <button class="btn btn-simple normalbutton" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
+                                                            <i class="fa fa-reply normali"></i> R<span class="normali">etour aux annonces</span>
+                                                        </button>
+                                                        
+                                                        <button id="contact">Contacter l'annonceur</button>
+                                                        
+                                                    </div>
+                                                </div> <!-- end back panel -->
+                                            </div> <!-- end card -->
+                                        </div> <!-- end card-container -->
+                                    </div> <!-- end col sm 3 -->
+                
+                
+                                    <?php
+                                      
+                                        }//End foreach
+                                        
+                                        
+                                    }//Fin $select->execute()
+                                    ?>
+                                    <!--         <div class="col-sm-1"></div> -->
+        
     
-    foreach($data as $v){
-
-        $details = (array)json_decode($v['details']);
-?>
-        <div class="col-md-4 col-sm-6">
-            <div class="card-container manual-flip">
-                <div class="card">
-                    <div class="front">
-                    
-                        <div class="cover normalcover">
-                            
-                            <h3 class="name"><?= $details['name']?></h3>
-                                <p class="profession"><?= $details['profession']?></p>
-                       </div>
-
-
-                        <div class="content">
-                            <div class="main">
-                                <p class="text-center"><strong><?/*= $v['title']*/?></strong><br><?/*= $v['kind']*/?><strong><?= $v['type']?></strong><br>Date de publication : <br><?= $details['department']?>, <?= $details['city']?><br><?= $v['description']?></p>
-                            </div>
-                            <div class="footer footfront">
-                                <button class="btn btn-simple" onclick="rotateCard(this)">
-                                    <i class="fa fa-mail-forward"></i> Voir les détails de l'offre
-                                </button>
-                            </div>
-                        </div>
-                    </div> <!-- end front panel -->
-                    <div class="back">
-                        <div class="header">
-                            <h5 class="motto"><?= $v['title']?></h5>
-                        </div>
-                        <div class="content">
-                            <div class="main">
-                                <p>Heures d'activités : <?=$details['opening'].' à '.$details['closing']?></p>
-                                <p class="text-center"><?= $v['description']?><br>Domicile/Cabinet<br><?= $details['exercise']?><br>Nbre de praticiens : <?= $details['nbPraticioner']?><br>Logiciel utilisé : <?=$details['software']?></p>
-
-                                <div class="stats-container">
-                                   <div class="stats">
-                                        <h4>CA</h4>
-                                        <p>
-                                            Annuel
-                                        </p>
-                                    </div>
-                                    <div class="stats">
-                                        <h4><?=$details['patient/day']?></h4>
-                                        <p>
-                                            Patients/jour
-                                        </p>
-                                    </div>
-                                    <div class="stats">
-                                        <h4><?=$details['patient/day']?></h4>
-                                        <p>
-                                            Rétrocession
-                                        </p>
-                                    </div>
-                                    <div class="stats">
-                                        <h4><?=$details['hour/week']?></h4>
-                                        <p>
-                                            Hrs/semaine
-                                        </p>
                                     </div>
                                 </div>
 
-                            </div>
-                        </div>
-                        <div class="footer">
-                            <button class="btn btn-simple" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
-                                <i class="fa fa-reply"></i> Retour aux annonces
-                            </button>
-                            
-                            <button id="contact">Contacter l'annonceur</button>
-                            
-                        </div>
-                    </div> <!-- end back panel -->
-                </div> <!-- end card -->
-            </div> <!-- end card-container -->
-        </div> <!-- end col sm 3 -->
-                
-                
-<?php
-  
-    }//End foreach
-    
-    
-}//Fin $select->execute()
-?>
-<!--         <div class="col-sm-1"></div> -->
-        
-    
-    </div>
-</div>
-
-                </section>
-                <!--/Section: About-->
+                    </section>
+                    <!--/Section: About-->
 
                 <hr class="between-sections wow fadeIn" data-wow-delay="0.4s">
 
@@ -392,7 +386,7 @@ if($select->execute()){
                         <hr class="between-sections wow fadeIn" data-wow-delay="0.4s">
 
                         <!--About-->
-                        <h5 class="title mb-1"><strong>A PROPOS DE NOUS</strong></h5>
+                        <h5 class="title mb-1 normaltitlefoot"><strong>A PROPOS DE NOUS</strong></h5>
 
                         <p>A remplir !</p>
 
@@ -434,7 +428,7 @@ if($select->execute()){
                     <div class="col-xl-3 offset-xl-1 col-lg-4 col-md-6 t-1 pb-1 wow fadeIn" data-wow-delay="0.3s">
 
                         <!--Title-->
-                        <h5 class="title mb-2"><strong>Dernières recherches</strong></h5>
+                        <h5 class="title mb-2 normaltitlefoot"><strong>Dernières recherches</strong></h5>
 
                         <!--Opening hours table-->
                         <table class="table">
