@@ -1,6 +1,8 @@
 .welcologo {
     height: 2em;
     transition: .3s;}
+.normallogo {
+    height: 2em;}
 .intro-page  .navbar:not(.top-nav-collapse) .welcologo {
     height: 3em; }
 .testcolor {
@@ -31,7 +33,25 @@ input[type=text], select {
 
 .normalheader {
   height: auto !important;}
-  
+.normalsection {
+  background-color: #ffb300 !important;}
+.whitesection {
+  background-color: #fff !important;}
+.normalfooter {
+  margin-top: 0 !important;}
+#normalnav {
+    background-color: #fff !important;}
+#normalnav .nav-item a {
+  color: #4c4971 !important;
+  text-shadow: none;}
+#normalnav .nav-item a:hover {
+  color: #fff !important;
+  text-shadow: 0px -1.2px 1px #323044, 0px 1.2px 1px #323044, 1.2px 0px 0 #323044, -1.2px 0px 1px #323044;}
+.normalcover {
+  background-color: #90A4AE;}
+.profession {
+  color: #fff !important;}
+  .normaltitle{padding-top: 20px !important;}
 /*----------------------------------
 		FORMS BOOTSTRAP 3.3.7
 ------------------------------------*/
