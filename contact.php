@@ -2,6 +2,61 @@
 
     require('include/connect.php');
     require('include/header.php');
+    $contact =[]; // Contiendra les données du formulaire nettoyées
+    $errors =[]; // Contiendra les éventuelles erreurs
+    $display = true;
+    $password = '';
+
+    if(!empty($_POST)){
+
+        foreach($_POST as $key => $value){
+            $contact[$key] = trim(strip_tags($value));
+        }
+
+        if(strlen($contact['lastname']) < 2){
+            $errors[] = 'Veuillez saisir votre nom !';
+        }
+
+        if(strlen($contact['firstname']) < 3){
+            $errors[] = 'Veuillez saisir votre prénom !';
+        }
+
+        if(!filter_var($contact['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors[] = 'Veuillez saisir votre adresse email !';
+        }
+
+        if(strlen($contact['object']) < 2){
+            $errors[] = 'Quel est le sujet de votre demande ?';
+        }
+
+        if(strlen($contact['message']) < 20 || strlen($contact['message']) > 150){
+            $errors[] = 'Veuillez saisir un message compris entre 20 et 150 caractères !';
+        }
+
+
+        if(count($errors) === 0){
+
+            // Ajout d'une ligne dans contact
+            $contactRequest = $bdd->prepare('INSERT INTO contact (lastname, firstname, email, object, message) VALUES(:lastname, :firstname, :email, :object, :message)');
+            $contactRequest->bindValue(':lastname', $contact['lastname']);
+            $contactRequest->bindValue(':firstname', $contact['firstname']);
+            $contactRequest->bindValue(':email', $contact['email']);
+            $contactRequest->bindValue(':object', $contact['object']);
+            $contactRequest->bindValue(':message', $contact['message']);
+
+
+            if($contactRequest->execute()){
+                $success = 'Votre message a été envoyé !';
+                $display = false;
+            }
+            else {
+                die;
+            }
+        }
+        else {
+            $errorsText = implode('<br>', $errors);
+        }
+    }
 
 ?>
 <!DOCTYPE html>
@@ -210,45 +265,96 @@
                                     <div class="row wow fadeIn" data-wow-delay="0.4s">
                                         <div class="col-sm-6">
                                         <p>Pour tout renseignement ou demande de contact, veuillez remplir ce formulaire. Nous vous répondrons dans les plus brefs délais.</p>
-                                        <form method="post" class="form-horizonthal" enctype="multipart/form-data">
 
-                                            <div class="form-group">
-                                                <div class="col-sm-6">
-                                                    <input name="lastname" required class="form-control" type="text" placeholder="Saisissez votre Nom">
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <input name="firstname" required class="form-control" type="text" placeholder="Saisissez votre Prénom">
-                                                </div>
-                                            </div>
+                                        <?php if(isset($success)): // La variable $success n'existe que lorsque tout est ok ?>
+                                        <div class="col-sm-6"><p style="color:green"><?php echo $success; ?></p>
 
-                                            <!-- Email -->
-                                            <div class="form-group">
-                                                <div class="col-sm-12">
-                                                    <input name="email" required class="form-control" type="email" placeholder="Saisissez votre Email">
-                                                </div>
-                                            </div> 
-                                            <!-- /.Email -->
+                                            <p style="color:white"><strong>Infos saisies :</strong></p>
+                                            <ul>
+                                                <?php 
+                                                foreach($user as $key => $value){
+                                                    if($key == 'lastname'){
+                                                        echo '<li><i class="glyphicon glyphicon-user" aria-hidden="true"></i> '.strtoupper($value);
+                                                    }
+                                                    elseif($key == 'firstname'){
+                                                        echo ' '.ucwords($value).'</li>';
+                                                    }
+                                                    elseif($key == 'email'){
+                                                        echo '<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> '.$value.'</li>';
+                                                    }
+                                                    elseif($key == 'phone'){
+                                                        echo '<li><i class="glyphicon glyphicon-phone-alt" aria-hidden="true"></i> '.$value.'</li>';
+                                                    }
+                                                    elseif($key == 'address'){
+                                                        echo '<li><i class="glyphicon glyphicon-home" aria-hidden="true"></i> '.$value.'</li>';
+                                                    }
+                                                    elseif($key == 'zipcode'){
+                                                        echo '<li><i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i> '.$value.'</li>';
+                                                    }
+                                                    elseif($key == 'city'){
+                                                        echo '<li><i class="glyphicon glyphicon-globe" aria-hidden="true"></i> '.$value.'</li>';
+                                                    }
+                                                }
+                                                ?>
+                                            </ul></div>
 
-                                            <!-- Sujet -->
-                                            <div class="form-group">
-                                                <div class="col-sm-12">
-                                                    <input name="object" required class="form-control" type="text" placeholder="Saisissez votre Sujet">
-                                                </div>
-                                            </div>
+                                        <?php endif; ?> 
 
-                                            <!-- Message -->
-                                            <div class="form-group">
-                                                <div class="col-xs-12">
-                                                    <textarea id="message" name="message" rows="5" placeholder="Saisissez votre message" class="form-control"></textarea>           
+
+                                        <?php if(isset($errorsText)): // La variable $errorsText n'existe que lorsqu'il y a des erreurs ?>
+                                        <p style="color:red"><?php echo $errorsText; ?></p>
+                                        <?php endif; ?>
+
+
+                                        <?php
+                                        if ($display == false){
+
+                                        } else {
+
+                                        ?>
+                                            <form method="post" class="form-horizonthal" enctype="multipart/form-data">
+
+                                                <div class="form-group">
+                                                    <div class="col-sm-6">
+                                                        <input name="lastname" required class="form-control" type="text" placeholder="Saisissez votre Nom">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input name="firstname" required class="form-control" type="text" placeholder="Saisissez votre Prénom">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                                
-                                            <div class="text-center">
-                                                <div class="col-sm-12">
-                                                    <button type="submit" class="btn btn-primary">Rechercher</button>
+
+                                                <!-- Email -->
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <input name="email" required class="form-control" type="email" placeholder="Saisissez votre Email">
+                                                    </div>
+                                                </div> 
+                                                <!-- /.Email -->
+
+                                                <!-- Sujet -->
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <input name="object" required class="form-control" type="text" placeholder="Saisissez votre Sujet">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </form>
+
+                                                <!-- Message -->
+                                                <div class="form-group">
+                                                    <div class="col-xs-12">
+                                                        <textarea id="message" name="message" rows="5" placeholder="Saisissez votre message" class="form-control"></textarea>           
+                                                    </div>
+                                                </div>
+                                                    
+                                                <div class="text-center">
+                                                    <div class="col-sm-12">
+                                                        <button type="submit" class="btn btn-primary">Envoyer votre message</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        <?php 
+                                            }
+                                        ?>
                                     </div>
 
                                     <iframe class="col-sm-6" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15442.480820502418!2d-61.0343062!3d14.6206985!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x4905ada70da911c0!2sPiment+Sucr%C3%A9!5e0!3m2!1sfr!2s!4v1496434529644" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
