@@ -128,7 +128,7 @@
 					<button class="btn btn-simple normalbutton" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
 						<i class="fa fa-reply normali"></i> R<span class="normali">etour aux annonces</span>
 					</button>
-
+						<a id="contact" class="btn btn-lg btn-rounded btn-primary waves-effect waves-light" data-toggle="modal" data-target="#modal-contact">Contacter l'annonceur</a>
 					<button id="contact">Contacter l'annonceur</button>
 
 				</div>
@@ -145,3 +145,22 @@
 
 
 ?>
+
+
+<script>
+
+	$('#contact').on('click',function(){
+				
+				$.ajax({
+						  type: 'post',
+						  url: '/git/welco-med/check_contact.php'
+
+					}).done(function(o){
+						//console.log(o);
+						$('#modal-content').html(o);
+
+					});
+				
+			});
+	
+</script>

@@ -173,49 +173,41 @@
             </nav>
             <!--/Navbar-->
 
-            <!--Modal Reservation-->
-            <div class="modal fade modal-ext" id="modal-reservation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <!--Modal Contact-->
+            <div class="modal fade modal-ext" id="modal-contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <!--Content-->
                     <div class="modal-content">
-                        <!--Header-->
+                       <!--Header-->
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title w-100">Resrervation Form</h4>
+                            <h4 class="modal-title w-100">Contacter l'annonceur</h4>
                         </div>
                         <!--Body-->
                         <div class="modal-body">
                             <div class="md-form">
-                                <input type="text" id="form22" class="form-control">
-                                <label for="form42">Your Full Name</label>
+                                <input type="text" id="name" name="name" class="form-control">
+                                <label for="form42">Nom</label>
                             </div>
 
                             <div class="md-form">
-                                <input type="text" id="form32" class="form-control">
-                                <label for="form34">Your Email</label>
+                                <input type="text" id="object" name="object" class="form-control">
+                                <label for="form34">Objet</label>
                             </div>
 
                             <div class="md-form">
-                                <input type="text" id="form32" class="form-control">
-                                <label for="form34">Your Phone Number</label>
+								<textarea id="message" name="message" class="form-control" textarea></textarea>
+                                <label for="form34">Votre message</label>
                             </div>
 
-                            <select class="mdb-select colorful-select dropdown-default">
-                                <option value="1">One Person</option>
-                                <option value="2">Two Persons</option>
-                                <option value="3">Three Persons</option>
-                                <option value="4">More</option>
-                            </select>
+                            
 
                             <div class="text-center">
-                                <button class="btn btn-lg btn-rounded btn-primary">Send Information</button>
-                                <p class="text-muted">*Some dummy text goes here.</p>
-
-                                <div class="call">
-                                    <p>Or you prefer book a table by phone? <span class="cf-phone"><i class="fa fa-phone"></i>+01 234 565 280</span></p>
-                                </div>
+                               
+                                <button class="btn btn-lg btn-rounded btn-primary">Envoyer</button>
+                               
                             </div>
                         </div>
                         <!--Footer-->
@@ -226,7 +218,99 @@
                     <!--/Content-->
                 </div>
             </div>
+            <!--/Modal Contact-->
+            
+            
+            
+            
+            <!--Modal Reservation-->
+            <div class="modal fade modal-ext" id="modal-reservation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Formulaire d'inscription</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-content">
+							
+                       		<form id="subscribe" method="post" enctype="multipart/form-data">
+								
+								<select class="mdb-select colorful-select dropdown-default" name="profession1" id="profession1">
+								<option value="none">--- Choisir votre proffession ---</option>
+								<?php foreach($professionAvailable as $value){ echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';} ?>
+								</select>
+								
+								<div class="md-form">
+									<input type="text" name="firstname" id="firstname" class="form-control">
+									<label for="firstname">Votre Nom</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="lastname" id="lastname" class="form-control">
+									<label for="lastname">Votre Prénom</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="address" id="address" class="form-control">
+									<label for="address">Adresse</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="zipcode" id="zipcode" class="form-control">
+									<label for="zipcode">Code Postal</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="city" id="city1" class="form-control">
+									<label for="city">Ville</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="department" id="department" class="form-control">
+									<label for="department">Département</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="telephone" id="telephone" class="form-control">
+									<label for="telephone">Téléphone</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="email" id="email" class="form-control">
+									<label for="email">Email</label>
+								</div>
+
+								<div class="md-form">
+									<input type="password" name="password" id="password" class="form-control">
+									<label for="password">Mot de Passe</label>
+								</div>
+
+								<div class="text-center">
+									<button class="btn btn-lg btn-rounded btn-primary" id="sbt">S'inscrire</button>
+							<!--                                <p class="text-muted">*Some dummy text goes here.</p>-->
+								</div>
+							</form>
+                       
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!--/Content-->
+                </div>
+            </div>
             <!--/Modal Reservation-->
+            
+            
+            
+            
+            
 
         </header>
         <!--/Navigation & Intro-->
@@ -347,6 +431,7 @@
     
                                     </div>
                                 </div>
+						</div>
 
                     </section>
                     <!--/Section: About-->
@@ -354,7 +439,7 @@
                 <hr class="between-sections wow fadeIn" data-wow-delay="0.4s">
 
                 <!--Section: Testimonials v.3-->
-
+				</div>
             </div>
             <!--/Second container-->
 
@@ -578,8 +663,49 @@
 			});
 			
 //////////////////////////////////////////////////////////
-		
-			
+	
+/////////////////////////////////////////////////////////
+	
+			$('#sbt').on('click', function(e){
+				
+				e.preventDefault();
+				
+				var profession = $('#profession1').val();
+				
+				if(profession === 'none'){
+					
+					$('#modal-content').append('<p>Vous devez choisir un métier avant de valider le formulaire');
+				}
+				else{
+					
+					$.ajax({
+						  type: 'post',
+						  url: '/GIT/welco-med/import/check.php',
+						  data: { 
+
+							  profession    : $('#profession1').val(),
+							  name			: $('#profession1 option:selected').text(),
+							  firstname		: $('#firstname').val(),
+							  lastname		: $('#lastname').val(),
+							  address		: $('#address').val(),
+							  zipcode		: $('#zipcode').val(),
+							  city			: $('#city1').val(),
+							  department	: $('#department').val(),
+							  telephone		: $('#telephone').val(),
+							  email			: $('#email').val(),
+							  password		: $('#password').val(),
+
+						  }
+
+					}).done(function(o){
+						//console.log(o);
+						$('#modal-content').html(o);
+
+					});
+					
+				}
+				
+			});
 			
 			
 		</script>
