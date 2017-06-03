@@ -266,7 +266,8 @@ if($select->execute()){
                                         
                                         foreach($data as $v){
 
-                                            $details = (array)json_decode($v['details']);
+                                            $detail = (array)json_decode($v['detail']);
+											echo 'oui';
                                     ?>
                                     <div class="col-md-4 col-sm-6">
                                         <div class="card-container manual-flip">
@@ -275,14 +276,14 @@ if($select->execute()){
                                                 
                                                     <div class="cover normalcover">
                                                         
-                                                        <h3 class="name"><?= $details['name']?></h3>
-                                                            <p class="profession"><?= $details['profession']?></p>
+                                                        <h3 class="name"><?= $detail['firstname']?></h3>
+                                                            <p class="profession"><?= $detail['profession']?></p>
                                                    </div>
 
 
                                                     <div class="content">
                                                         <div class="main">
-                                                            <p class="text-center"><strong><?/*= $v['title']*/?></strong><br><?/*= $v['kind']*/?><strong><?= $v['type']?></strong><br>Date de publication : <br><?= $details['department']?>, <?= $details['city']?><br><?= $v['description']?></p>
+                                                            <p class="text-center"><strong><?/*= $v['title']*/?></strong><br><?/*= $v['kind']*/?><strong><?= $v['type']?></strong><br>Date de publication : <br><?= $detail['department']?>, <?= $detail['city']?><br><?= $v['description']?></p>
                                                         </div>
                                                         <div class="footer footfront">
                                                             <button class="btn btn-simple normalbutton" onclick="rotateCard(this)">
@@ -297,8 +298,8 @@ if($select->execute()){
                                                     </div>
                                                     <div class="content">
                                                         <div class="main">
-                                                            <p>Heures d'activités : <?=$details['opening'].' à '.$details['closing']?></p>
-                                                            <p class="text-center"><?= $v['description']?><br>Domicile/Cabinet<br><?= $details['exercise']?><br>Nbre de praticiens : <?= $details['nbPraticioner']?><br>Logiciel utilisé : <?=$details['software']?></p>
+                                                            <p>Heures d'activités : <?=$detail['opening'].' à '.$detail['closing']?></p>
+                                                            <p class="text-center"><?= $v['description']?><br>Domicile/Cabinet<br><?= $detail['exercise']?><br>Nbre de praticiens : <?= $detail['nbPraticioner']?><br>Logiciel utilisé : <?=$detail['software']?></p>
 
                                                             <div class="stats-container">
                                                                <div class="stats">
@@ -308,19 +309,19 @@ if($select->execute()){
                                                                     </p>
                                                                 </div>
                                                                 <div class="stats">
-                                                                    <h4><?=$details['patient/day']?></h4>
+                                                                    <h4><?=$detail['patient/day']?></h4>
                                                                     <p>
                                                                         Patients/jour
                                                                     </p>
                                                                 </div>
                                                                 <div class="stats">
-                                                                    <h4><?=$details['patient/day']?></h4>
+                                                                    <h4><?=$detail['patient/day']?></h4>
                                                                     <p>
                                                                         Rétrocession
                                                                     </p>
                                                                 </div>
                                                                 <div class="stats">
-                                                                    <h4><?=$details['hour/week']?></h4>
+                                                                    <h4><?=$detail['hour/week']?></h4>
                                                                     <p>
                                                                         Hrs/semaine
                                                                     </p>

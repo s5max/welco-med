@@ -1,6 +1,7 @@
 <?php
 
 	require('../include/connect.php');
+	require('../include/header.php');
 	
 	$select = $bdd->prepare('SELECT profession_id,offer_id,city_id FROM ad');
 
@@ -9,21 +10,21 @@
 		$ads = $select->fetchAll(PDO::FETCH_ASSOC);
 	
 		$adNb = count($ads);
-	$professionList = [];
-	$offerList = [];
-	$cityList = [];
-		
-	foreach($ads as $a){
+		$professionList = [];
+		$offerList = [];
+		$cityList = [];
 
-		$professionList[]=$a['profession_id'];
-		$offerList[]=$a['offer_id'];
-		$cityList[]=$a['city_id'];
+		foreach($ads as $a){
 
-	}
-	
-	$professionList = array_unique($professionList);
-	$offerList = array_unique($offerList);
-	$cityList = array_unique($cityList);
+			$professionList[]=$a['profession_id'];
+			$offerList[]=$a['offer_id'];
+			$cityList[]=$a['city_id'];
+
+		}
+
+		$professionList = array_unique($professionList);
+		$offerList = array_unique($offerList);
+		$cityList = array_unique($cityList);
 
 	}
 
@@ -99,7 +100,10 @@
 
         <!-- Bootstrap core CSS -->
         <!-- <link href="css/bootstrap337.css" rel="stylesheet"> -->
-        <link href="../css/bootstrap4.min.css" rel="stylesheet">
+        <link href='../css/bootstrap.css' rel='stylesheet' />
+        <link href="../css/bootstrap4.min.css" rel="stylesheet"/>
+        <link href='../css/rotating.css' rel='stylesheet' />
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
 
         <!-- Material Design Bootstrap -->
         <link href="../css/mdb.css" rel="stylesheet">
@@ -115,7 +119,7 @@
         <header class="normalheader">
 
             <!--Navbar-->
-            <nav class="navbar fixed-top navbar-toggleable-md navbar-dark scrolling-navbar">
+            <nav class="navbar fixed-top navbar-toggleable-md navbar-dark" id="normalnav">
 
                 <div class="container">
 
@@ -124,7 +128,7 @@
                     </button>
 
                     <a class="navbar-brand" href="#">
-                        <strong><img src="../img/logomin.png" class="welcologo"/></strong>
+                        <strong><img src="../img/logomin.png" class="normallogo"/></strong>
                     </a>
 
                     <div class="collapse navbar-collapse" id="navbarNav">
@@ -228,19 +232,16 @@
         <!--/Navigation & Intro-->
 
         <!--Main content-->
-        <main>
+        <main class=" normalsection">
 
             <!--First container-->
-            <div class="container">
+            <div class="container normalsection">
 
                 <!--Section: Features v.4-->
-                <section class="section mt-4 feature-box col-xs-12" id="features">
+                <section class="section mt-4 feature-box col-xs-12 normalsection" id="features">
 
                     <!--Secion heading-->
-                    <h1 class="text-center font-up font-bold mt-1 wow fadeIn" data-wow-delay="0.2s">&nbsp;</h1><br>
-
-                    <!--Section description-->
-                    <p class="text-center font-up font-bold mb-2 wow fadeIn" data-wow-delay="0.2s">Découvrez nos offres !</p>
+                    <h1 class="text-center font-up font-bold mt-1 wow fadeIn" data-wow-delay="0.2s">Découvrez nos offres !</h1><br>
 
                     <!-- Recherche -->
                     
@@ -248,45 +249,70 @@
                         <form method="post" class="form-horizonthal col-xs-12" enctype="multipart/form-data">
 
                                 <div class="form-group">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <select name="profession" id="profession" class="form-control">
-                                                <option value="" selected disabled>-- Profession --</option>
+                                                <option value="0" selected disabled>-- Profession --</option>
                                                 <!-- On réutilise notre array() ci-dessus -->
-                                                <?php foreach ($specialityAvailable as $key => $value): ?>
-                                                    <option value="<?=$key;?>"><?=$value;?></option>
-                                                <?php endforeach; ?>
+                                                <?php foreach ($professionAvailable as $value): 
+														if(in_array($value['id'],$professionList)){
+												
+                                                    echo'<option value="'.$value['id'].'">'.$value['name'].'</option>';
+                                                 	}
+													else{
+														echo'<option value="'.$value['id'].'" disabled>'.$value['name'].'</option>';
+													}
+													   endforeach; 
+												?>
                                             </select>
                                         </div>
                                             
 
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <select name="type" id="type" class="form-control">
-                                                <option value="" selected disabled>-- Type d'offre --</option>
+                                                <option value="0" selected disabled>-- Type d'annonce --</option>
                                                 <!-- On réutilise notre array() ci-dessus -->
-                                                <?php foreach ($specialityAvailable as $key => $value): ?>
-                                                    <option value="<?=$key;?>"><?=$value;?></option>
-                                                <?php endforeach; ?>
+                                                <optgroup label="Offre">
+                                                <?php foreach($offer as $value){if(in_array($value[0],$offerList)){echo'<option value="'.$value[0].'">'.$value[1].'</option>';
+                                                 	}
+													else{
+														echo'<option value="'.$value[0].'" disabled>'.$value[1].'</option>';
+													}
+													}//End foreach ?>
+                                                <optgroup label="Demande">
+                                                <?php foreach($demand as $value){if(in_array($value[0],$offerList)){echo'<option value="'.$value[0].'">'.$value[1].'</option>';
+                                                 	}
+													else{
+														echo'<option value="'.$value[0].'" disabled>'.$value[1].'</option>';
+													}
+													}//End foreach ?>
                                             </select>
                                         </div>
                                     
 
-                                        <div class="col-sm-3">
-                                        <select name="city" id="city" class="form-control">
-                                            <option value="" selected disabled>-- Commune --</option>
-                                            <!-- On réutilise notre array() ci-dessus -->
-                                            <?php foreach ($specialityAvailable as $key => $value): ?>
-                                                <option value="<?=$key;?>"><?=$value;?></option>
-                                            <?php endforeach; ?>
-                                        </select>
+                                        <div class="col-sm-4">
+											<select name="city" id="city" class="form-control">
+												<option value="0" selected disabled>-- Commune --</option>
+												<!-- On réutilise notre array() ci-dessus -->
+												<?php foreach ($cityAvailable as $key => $value): 
+														if(in_array($value['id'],$cityList)){
+												?>
+													<option value="<?=$value['id'];?>"><?=$value['name'];?></option>
+												<?php	}
+															endforeach; 
+												?>
+											</select>
                                         </div>
                                 
                             
-                                <div class="col-sm-3">
-                                    <button type="submit" class="btn btn-primary">Rechercher</button>
-                                </div>
                             
 
                         </div>
+                            <div class="text-center">
+                               <p id="nbAd"></p>
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                                </div>
+                            </div>
                         
                     </form>
                     </div>
@@ -304,21 +330,26 @@
             <!--/First container-->
 
             <!--Second container-->
-            <div class="container">
+            <div class="container-full whitesection">
+                <div class="container">
 
-                <!--Section: About-->
-                <section class="section about mb-4" id="about"> 
+                    <!--Section: About-->
+                    <section class="section about mb-4" id="about"> 
 
-                    <!--Secion heading-->
-                    <h1 class="text-center font-up font-bold mt-1 wow fadeIn" data-wow-delay="0.2s">About us</h1>
+                        <div class="row">
+                            <h1 class="title normaltitle">Résultat de votre recherche</h1>
+                                <div class="col-sm-12">
+                                    <div class="col-md-12" id="search_result">
 
-                    <!--Section description-->
-                    <p class="text-center font-up font-bold mb-4 wow fadeIn" data-wow-delay="0.2s">With love to nature</p>
+                                    
+                                    <!--         Résultat de la recherche   	 -->
+        
+    
+                                    </div>
+                                </div>
 
-                    <!--First row-->
-
-                </section>
-                <!--/Section: About-->
+                    </section>
+                    <!--/Section: About-->
 
                 <hr class="between-sections wow fadeIn" data-wow-delay="0.4s">
 
@@ -331,7 +362,7 @@
         <!--/Main content-->
 
         <!--Footer-->
-        <footer class="page-footer footer-tiles center-on-small-only pt-4">
+        <footer class="page-footer footer-tiles center-on-small-only pt-4 normalfooter">
 
             <!--Footer Links-->
             <div class="container mb-4">
@@ -347,7 +378,7 @@
                         <hr class="between-sections wow fadeIn" data-wow-delay="0.4s">
 
                         <!--About-->
-                        <h5 class="title mb-1"><strong>A PROPOS DE NOUS</strong></h5>
+                        <h5 class="title mb-1 normaltitlefoot"><strong>A PROPOS DE NOUS</strong></h5>
 
                         <p>A remplir !</p>
 
@@ -389,7 +420,7 @@
                     <div class="col-xl-3 offset-xl-1 col-lg-4 col-md-6 t-1 pb-1 wow fadeIn" data-wow-delay="0.3s">
 
                         <!--Title-->
-                        <h5 class="title mb-2"><strong>Dernières recherches</strong></h5>
+                        <h5 class="title mb-2 normaltitlefoot"><strong>Dernières recherches</strong></h5>
 
                         <!--Opening hours table-->
                         <table class="table">
@@ -432,12 +463,14 @@
         <!-- SCRIPTS -->
 
         <!-- JQuery -->
+        <script src="../js/jquery-1.10.2.js" type="text/javascript"></script>
         <script type="text/javascript" src="../js/jquery-3.1.1.min.js"></script>
 
         <!-- Bootstrap tooltips -->
         <script type="text/javascript" src="../js/tether.min.js"></script>
 
         <!-- Bootstrap core JavaScript -->
+        <script src="../js/bootstrap.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="../js/bootstrap4.min.js"></script>
 
         <!-- MDB core JavaScript -->
@@ -454,6 +487,102 @@
             });
 
         </script>
+
+
+<script type="text/javascript">
+    $().ready(function(){
+        $('[rel="tooltip"]').tooltip();
+
+    });
+
+    function rotateCard(btn){
+        var $card = $(btn).closest('.card-container');
+        console.log($card);
+        if($card.hasClass('hover')){
+            $card.removeClass('hover');
+        } else {
+            $card.addClass('hover');
+        }
+    }
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46172202-4', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    
+<script>
+			
+			$('#profession').on('change',function(){
+				
+				$.ajax({
+					
+					type	: 'post',
+					url		: '/GIT/welco-med/ad/import/search_result.php',
+					data	: {
+							profession_id	: $('#profession').val(),
+							offer_id	: $('#type').val(),
+							city_id	: $('#city').val()
+					},
+					success	: function(r){
+						console.log(r);
+						$('#search_result').html(r);
+					}
+				});
+			});
+			
+/////////////////////////////////////////
+			
+			$('#type').on('change',function(){
+				
+				$.ajax({
+					
+					type	: 'post',
+					url		: '/GIT/welco-med/ad/import/search_result.php',
+					data	: {
+							profession_id	: $('#profession').val(),
+							offer_id	: $('#type').val(),
+							city_id	: $('#city').val()	
+					},
+					success	: function(r){
+						console.log(r);
+						$('#search_result').html(r);
+					}
+				});
+			});
+			
+/////////////////////////////////////////
+			
+			$('#city').on('change',function(){
+				
+				$.ajax({
+					
+					type	: 'post',
+					url		: '/GIT/welco-med/ad/import/search_result.php',
+					data	: {
+							profession_id	: $('#profession').val(),
+							offer_id	: $('#type').val(),
+							city_id	: $('#city').val()	
+					},
+					success	: function(r){
+						console.log(r);
+						$('#search_result').html(r);
+					}
+				});
+			});
+			
+//////////////////////////////////////////////////////////
+		
+			
+			
+			
+		</script>
 
     </body>
 
