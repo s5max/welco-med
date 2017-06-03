@@ -808,11 +808,13 @@
                                 </tr>
                             </tbody>
                         </table>
+<!--
 <<<<<<< HEAD:home.php
                         <a class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-reservation">S'inscrire</a>
 =======
                         
 >>>>>>> front2_clone:home.html
+-->
 
                     </div>
                     <!--/First column-->
