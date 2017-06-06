@@ -128,8 +128,17 @@
 					<button class="btn btn-simple normalbutton" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
 						<i class="fa fa-reply normali"></i> R<span class="normali">etour aux annonces</span>
 					</button>
+					<?php if(!isset($SESSION['user'])){ ?>
+						<a id="contact" class="btn btn-lg btn-rounded btn-primary waves-effect waves-light" data-toggle="modal" data-target="#modal-contact" disabled>Contacter l'annonceur</a>
+	 				<?php echo '<p>vous devez être inscrit(e) et connecté(e) pour contacter l\'annonceur</p>'; 
+					?>
+						<a class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-reservation">Inscription</a>
+					<?php
+ 					}
+		 			else{
+					?>
 						<a id="contact" class="btn btn-lg btn-rounded btn-primary waves-effect waves-light" data-toggle="modal" data-target="#modal-contact">Contacter l'annonceur</a>
-					<button id="contact">Contacter l'annonceur</button>
+					<?php } ?>
 
 				</div>
 			</div> <!-- end back panel -->

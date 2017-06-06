@@ -236,8 +236,8 @@
 								</div>
 
 								<div class="md-form">
-									<input type="text" name="city" id="city1" class="form-control">
-									<label for="city">Ville</label>
+									<input type="text" name="city1" id="city1" class="form-control">
+									<label for="city1">Ville</label>
 								</div>
 
 								<div class="md-form">
