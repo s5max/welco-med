@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+var_dump($_SESSION);
 	require('../include/connect.php');
 	require('../include/header.php');
 	
@@ -173,53 +174,6 @@
             </nav>
             <!--/Navbar-->
 
-            <!--Modal Contact-->
-            <div class="modal fade modal-ext" id="modal-contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <!--Content-->
-                    <div class="modal-content">
-                       <!--Header-->
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title w-100">Contacter l'annonceur</h4>
-                        </div>
-                        <!--Body-->
-                        <div class="modal-body">
-                            <div class="md-form">
-                                <input type="text" id="name" name="name" class="form-control">
-                                <label for="form42">Nom</label>
-                            </div>
-
-                            <div class="md-form">
-                                <input type="text" id="object" name="object" class="form-control">
-                                <label for="form34">Objet</label>
-                            </div>
-
-                            <div class="md-form">
-								<textarea id="message" name="message" class="form-control" textarea></textarea>
-                                <label for="form34">Votre message</label>
-                            </div>
-
-                            
-
-                            <div class="text-center">
-                               
-                                <button class="btn btn-lg btn-rounded btn-primary">Envoyer</button>
-                               
-                            </div>
-                        </div>
-                        <!--Footer-->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                    <!--/Content-->
-                </div>
-            </div>
-            <!--/Modal Contact-->
-            
             
             
             
@@ -309,7 +263,97 @@
             
             
             
+            <!--Modal log-->
+            <div class="modal fade modal-ext" id="modal-log" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                       <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Se Connecter</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-log-content">
+                            <div class="md-form">
+                                <input type="text" id="email_log" name="email_log" class="form-control">
+                                <label for="form42">Email</label>
+                            </div>
+
+                            <div class="md-form">
+                                <input type="password" id="password_log" name="password_log" class="form-control">
+                                <label for="password_log">Mot de passe</label>
+                            </div>
+
+                            <div class="text-center">
+                               
+                                <button id="log" class="btn btn-lg btn-rounded btn-primary">Connexion</button>
+                               
+                            </div>
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!--/Content-->
+                </div>
+            </div>
+            <!--/Modal log-->
             
+            
+            
+            
+            
+            <!--Modal Contact-->
+            <div class="modal fade modal-ext" id="modal-contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                       <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Contacter l'annonceur</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-contact-content">
+<!--                            <div class="md-form">-->
+                                <input type="hidden" id="sender_id" name="sender_id" class="form-control">
+                                <input type="hidden" id="receiver_id" name="receiver_id" class="form-control">
+<!--                            <label for="name">Nom</label>-->
+<!--                            </div>-->
+
+                            <div class="md-form">
+                                <input type="text" id="object" name="object" class="form-control">
+                                <label for="object">Objet</label>
+                            </div>
+
+                            <div class="md-form">
+								<textarea id="message" name="message" class="form-control" rows="5"></textarea>
+                                <label for="message">Votre message</label>
+                            </div>
+
+                            
+
+                            <div class="text-center">
+                               
+                                <button id="contact_advertiser" class="btn btn-lg btn-rounded btn-primary">Envoyer</button>
+                               
+                            </div>
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!--/Content-->
+                </div>
+            </div>
+            <!--/Modal Contact-->
             
 
         </header>
@@ -704,6 +748,56 @@
 					});
 					
 				}
+				
+			});
+	
+	
+			$('#log').on('click', function(e){
+				
+				e.preventDefault();
+					
+					$.ajax({
+						  type: 'post',
+						  url: '/GIT/welco-med/import/log.php',
+						  data: { 
+
+							  email			: $('#email_log').val(),
+							  password		: $('#password_log').val(),
+
+						  }
+
+					}).done(function(o){
+						console.log(o);
+						$('#modal-log-content').html(o);
+
+					});
+					
+				
+			});
+	
+			
+	
+			$('#contact_advertiser').on('click', function(e){
+				
+				e.preventDefault();
+					
+					$.ajax({
+						  type: 'post',
+						  url: '/git/welco-med/ad/import/check_contact.php',
+						  data: { 
+							  sender_id		: $('#sender_id').val(),
+							  receiver_id	: $('#receiver_id').val(),
+							  object		: $('#object').val(),
+							  message		: $('#message').val(),
+
+						  }
+
+					}).done(function(o){
+						//console.log(o);
+						$('#modal-contact-content').html(o);
+
+					});
+					
 				
 			});
 			

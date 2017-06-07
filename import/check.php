@@ -89,7 +89,7 @@ if(!empty($_POST)){
     }
 	else{
 		
-		echo '<div class="md-form"><input type="text" name="city" id="city" class="form-control" value="'.$post['city'].'" disabled><label for="city">Ville</label></div>';
+		echo '<div class="md-form"><input type="text" name="city" id="city1" class="form-control" value="'.$post['city'].'" disabled><label for="city1">Ville</label></div>';
 	}
         
 /////////////////////////////////////////////
@@ -129,7 +129,7 @@ if(!empty($_POST)){
 	else{
 
 		//Vérifier que l'email n'existe pas
-		$select = $bdd->prepare('SELECT email from users WHERE email = :email');
+		$select = $bdd->prepare('SELECT email from user WHERE email = :email');
 
 		$select->bindValue(':email',$post['email']);
 		
@@ -191,7 +191,7 @@ if($error === 0){
 
 	if($insert->execute()){
 
-		echo'<p>Bienvenue dans la communauté Welcomed<br><a href="/GIT/welco-med/login.php">Connectez-vous à votre espace personnel</a></p>';
+		echo'<p>Bienvenue dans la communauté Welcomed<br></p><a class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-log">Se connecter</a>';
 		
 	}
 	

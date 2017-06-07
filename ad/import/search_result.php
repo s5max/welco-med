@@ -1,5 +1,7 @@
 <?php
 
+	session_start();
+
 	if(!empty($_POST)){
 		
 		$post = array_map('trim',array_map('strip_tags',$_POST));
@@ -128,16 +130,23 @@
 					<button class="btn btn-simple normalbutton" rel="tooltip" title="Flip Card" onclick="rotateCard(this)">
 						<i class="fa fa-reply normali"></i> R<span class="normali">etour aux annonces</span>
 					</button>
-					<?php if(!isset($SESSION['user'])){ ?>
-						<a id="contact" class="btn btn-lg btn-rounded btn-primary waves-effect waves-light" data-toggle="modal" data-target="#modal-contact" disabled>Contacter l'annonceur</a>
-	 				<?php echo '<p>vous devez être inscrit(e) et connecté(e) pour contacter l\'annonceur</p>'; 
-					?>
-						<a class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-reservation">Inscription</a>
+					<?php if(!isset($_SESSION['user'])){ ?>
+							
+							<a id="contact" class="btn btn-lg btn-rounded btn-primary waves-effect waves-light btn-contact" data-receiver="<?=$v['user_id'];?>" data-toggle="modal" data-target="#modal-contact" disabled>Contacter l'annonceur</a>
+
+						<div id="no-log">
+						
+							<p>vous devez être inscrit(e) et connecté(e) pour contacter l\'annonceur</p>
+
+							<a class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-reservation">S'inscrire</a>
+
+							<a class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-log">Se connecter</a>
+						</div>
 					<?php
  					}
 		 			else{
 					?>
-						<a id="contact" class="btn btn-lg btn-rounded btn-primary waves-effect waves-light" data-toggle="modal" data-target="#modal-contact">Contacter l'annonceur</a>
+						<a id="contact" class="btn btn-lg btn-rounded btn-primary waves-effect waves-light btn-contact" data-receiver="<?=$v['user_id'];?>" data-toggle="modal" data-target="#modal-contact">Contacter l'annonceur</a>
 					<?php } ?>
 
 				</div>
@@ -158,16 +167,20 @@
 
 <script>
 
-	$('#contact').on('click',function(){
+	$('.btn-contact').on('click',function(e){
 				
+				var receiver = this.attributes[2].nodeValue;
+				console.log(receiver);
+		console.log(this);
 				$.ajax({
 						  type: 'post',
-						  url: '/git/welco-med/check_contact.php'
+						  url: '/git/welco-med/ad/import/get_user.php'
 
 					}).done(function(o){
 						//console.log(o);
-						$('#modal-content').html(o);
-
+						$('#sender_id').val(o);
+						$('#receiver_id').val(receiver);
+						
 					});
 				
 			});
