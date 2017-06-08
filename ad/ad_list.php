@@ -3,7 +3,7 @@
     require('../include/connect.php');
     require('../include/header.php');
 
-$select = $bdd->prepare('SELECT * FROM ads');
+$select = $bdd->prepare('SELECT * FROM ad');
 
 if($select->execute()){
     
