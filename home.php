@@ -138,16 +138,16 @@
                                 <a class="nav-link" href="#features">Voir les offres</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#about" data-offset="100">Contactez-nous</a>
+                                <a class="nav-link" href="#footer" data-offset="100">Contactez-nous</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#products" data-offset="100">Publier une annonce</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#testimonials" data-offset="100">Mon Compte</a>
+                                <?php if(isset($_SESSION['id']) && isset($_SESSION['email'])){echo '<a class="nav-link" href="account.php">Mon Compte</a>';} else {echo '<a class="nav-link" data-toggle="modal" data-target="#modal-reservation">S\'inscrire</a>';}?>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link wcomlink" href="#contact" data-target="#modal-contact">Welcomed Community</a>
+                                <a class="nav-link wcomlink" href="#about" data-target="#modal-contact">Welcomed Community</a>
                             </li>
                         </ul>
 
@@ -211,7 +211,7 @@
                        		<form id="subscribe" method="post" enctype="multipart/form-data">
 								
 								<select class="mdb-select colorful-select dropdown-default" name="profession1" id="profession1">
-								<option value="none">--- Choisir votre proffession ---</option>
+								<option value="none">--- Choisir votre profession ---</option>
 								<?php foreach($professionAvailable as $value){ echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';} ?>
 								</select>
 								
@@ -570,15 +570,15 @@
             <!--/First container-->
 
             <!--Streak-->
-            <div class="streak streak-photo streak-large view photo-1 hr-streak" id="home">
+            <div class="streak streak-photo streak-large view photo-1 hr-streak" id="about">
                 <div class="hm-black-strong-1">
                     <div class="mask flex-center">
                         <div class="container">
                             <!--First row-->
                             <div class="row text-white flex-center text-center mt-1 wow fadeIn" data-wow-delay="0.4s">
-                                <h1 class="brand-name font-up">Eat better - feel better</h1>
+                                <h1 class="brand-name font-up">Welcomed Community</h1>
                                 <hr class="hr-light w-100">
-                                <h2 class="font-up pt-1"><strong>We make healty coffee and food</strong></h2>
+                                <h2 class="font-up pt-1"><strong>...</strong></h2>
                             </div>
                             <!--/First row-->
                         </div>
@@ -591,13 +591,13 @@
             <div class="container">
 
                 <!--Section: About-->
-                <section class="section about mb-4" id="about"> 
+                <section class="section about mb-4"> 
 
                     <!--Secion heading-->
-                    <h1 class="text-center font-up font-bold mt-1 wow fadeIn" data-wow-delay="0.2s">About us</h1>
+                    <h1 class="text-center font-up font-bold mt-1 wow fadeIn" data-wow-delay="0.2s">Qu'Est-ce que la Welcomed Community</h1>
 
                     <!--Section description-->
-                    <p class="text-center font-up font-bold mb-4 wow fadeIn" data-wow-delay="0.2s">With love to nature</p>
+                    <p class="text-center font-up font-bold mb-4 wow fadeIn" data-wow-delay="0.2s">...</p>
 
                     <!--First row-->
                     <div class="row">
@@ -640,10 +640,10 @@
                 <section class="section team-section" id="testimonials">
 
                     <!--Secion heading-->
-                    <h1 class="text-center font-up font-bold mt-1 wow fadeIn" data-wow-delay="0.2s">Testimonials</h1>
+                    <h1 class="text-center font-up font-bold mt-1 wow fadeIn" data-wow-delay="0.2s">Témoignages</h1>
 
                     <!--Section description-->
-                    <p class="text-center font-up font-bold mb-4 wow fadeIn" data-wow-delay="0.2s">What happy customers say</p>
+                    <p class="text-center font-up font-bold mb-4 wow fadeIn" data-wow-delay="0.2s">Ce qu'ils ont à en dire</p>
 
                     <!--First row-->
                     <div class="row text-center">
@@ -660,15 +660,6 @@
                                 <!--Content-->
                                 <h4>Anna Deynah</h4>
                                 <p><i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab.</p>
-
-                                <!--Review-->
-                                <div class="grey-text">
-                                    <i class="fa fa-star"> </i>
-                                    <i class="fa fa-star"> </i>
-                                    <i class="fa fa-star"> </i>
-                                    <i class="fa fa-star"> </i>
-                                    <i class="fa fa-star-half-full"> </i>
-                                </div>
                             </div>
                         </div>
                         <!--/First column-->
@@ -684,15 +675,6 @@
                                 <!--Content-->
                                 <h4>John Doe</h4>
                                 <p><i class="fa fa-quote-left"></i> Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi.</p>
-
-                                <!--Review-->
-                                <div class="grey-text">
-                                    <i class="fa fa-star"> </i>
-                                    <i class="fa fa-star"> </i>
-                                    <i class="fa fa-star"> </i>
-                                    <i class="fa fa-star"> </i>
-                                    <i class="fa fa-star"> </i>
-                                </div>
                             </div>
                         </div>
                         <!--/Second column-->
@@ -707,15 +689,6 @@
                                 <!--Content-->
                                 <h4>Maria Kate</h4>
                                 <p><i class="fa fa-quote-left"></i> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.</p>
-
-                                <!--Review-->
-                                <div class="grey-text">
-                                    <i class="fa fa-star"> </i>
-                                    <i class="fa fa-star"> </i>
-                                    <i class="fa fa-star"> </i>
-                                    <i class="fa fa-star"> </i>
-                                    <i class="fa fa-star-o"> </i>
-                                </div>
 
                             </div>
                         </div>
@@ -734,7 +707,7 @@
         <!--/Main content-->
 
         <!--Footer-->
-        <footer class="page-footer footer-tiles center-on-small-only pt-4">
+        <footer class="page-footer footer-tiles center-on-small-only pt-4" id="footer">
 
             <!--Footer Links-->
             <div class="container mb-4">
@@ -828,7 +801,7 @@
             <!--Copyright-->
             <div class="footer-copyright wow fadeIn" data-wow-delay="0.3s">
                 <div class="container-fluid">
-                    © 2017 Copyright: <a href="https://www.MDBootstrap.com" rel="nofollow"> MDBootstrap.com </a>
+                    <p>© 2017 Copyright: Welcomed</p>
                 </div>
             </div>
             <!--/Copyright-->

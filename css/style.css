@@ -11,22 +11,22 @@
     color: #fff !important;
     text-shadow: 1px 1px 2px #000; }
 .nav-item a {
-	font-size: 18px;
-	color: #4c4971;}
+  font-size: 18px;
+  color: #4c4971;}
 .nav-item a:hover {
-	font-size: 18px;
-	color: #fff !important;
-	/*text-shadow: 0px 0px 2px #4c4971;*/
-	text-shadow: 0px -1.2px 1px #323044, 0px 1.2px 1px #323044, 1.2px 0px 0 #323044, -1.2px 0px 1px #323044;}
+  font-size: 18px;
+  color: #fff !important;
+  /*text-shadow: 0px 0px 2px #4c4971;*/
+  text-shadow: 0px -1.2px 1px #323044, 0px 1.2px 1px #323044, 1.2px 0px 0 #323044, -1.2px 0px 1px #323044;}
 .wcomlink:hover {font-size: 18px;
-	color: #fff !important;
-	/*text-shadow: 0px 0px 2px #4c4971;*/
-	text-shadow: 0px -1.2px 1px #ff3700, 0px 1.2px 1px #ff3700, 1.2px 0px 0 #ff3700, -1.2px 0px 1px #ff3700 !important;}
+  color: #fff !important;
+  /*text-shadow: 0px 0px 2px #4c4971;*/
+  text-shadow: 0px -1.2px 1px #ff3700, 0px 1.2px 1px #ff3700, 1.2px 0px 0 #ff3700, -1.2px 0px 1px #ff3700 !important;}
 .hwelcomed {
-	text-shadow: 1px 1px 8px #404040;
+  text-shadow: 1px 1px 8px #404040;
 }
 
-input[type=text], select {
+select {
   text-align: center;
   text-align-last: center;
   width: 400px;
@@ -41,7 +41,8 @@ input[type=text], select {
 .normalfooter {
   margin-top: 0 !important;}
 #normalnav {
-    background-color: #fff !important;}
+    background-color: #fff !important;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);}
 #normalnav .nav-item a {
   color: #4c4971 !important;
   text-shadow: none;}
@@ -59,8 +60,10 @@ input[type=text], select {
 .normaltitlefoot {
   font-size: 1.25rem !important;
   color: #fff;}
+.normalcontact {
+  text-align: left !important;}
 /*----------------------------------
-		FORMS BOOTSTRAP 3.3.7
+    FORMS BOOTSTRAP 3.3.7
 ------------------------------------*/
 .form-control {
   display: block;
@@ -93,9 +96,23 @@ input[type=text], select {
   padding-right: 0;
   padding-left: 0;
 }
+.breadcrumb{
+  padding:8px 15px !important;
+  margin-bottom:20px !important;
+  margin-top:20px !important;
+  list-style:none !important;
+  background-color:#f5f5f5 !important;
+  border-radius:4px !important;}
+.breadcrumb>li{
+  display:inline-block !important;}
+.breadcrumb>li:before{
+    padding:0 5px;color:#ccc !important;
+    content:none !important;}
+.breadcrumb>.active{
+  color:#777 !important;}
 
 /*----------------------------------
-		GRILLE BOOTSTRAP 3.3.7
+    GRILLE BOOTSTRAP 3.3.7
 ------------------------------------*/
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
@@ -735,7 +752,7 @@ input[type=text], select {
 }
 
 /*----------------------------------
-		BOUTONS BOOTSTRAP 3.3.7
+    BOUTONS BOOTSTRAP 3.3.7
 ------------------------------------*/
 .btn {
   display: inline-block;

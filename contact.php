@@ -37,7 +37,7 @@
         if(count($errors) === 0){
 
             // Ajout d'une ligne dans contact
-            $contactRequest = $bdd->prepare('INSERT INTO contact (lastname, firstname, email, object, message) VALUES(:lastname, :firstname, :email, :object, :message)');
+            $contactRequest = $bdd->prepare('INSERT INTO messages (lastname, firstname, email, object, message) VALUES(:lastname, :firstname, :email, :object, :message)');
             $contactRequest->bindValue(':lastname', $contact['lastname']);
             $contactRequest->bindValue(':firstname', $contact['firstname']);
             $contactRequest->bindValue(':email', $contact['email']);
@@ -122,7 +122,7 @@
                         <span class="navbar-toggler-icon"></span> 
                     </button>
 
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="home.php">
                         <strong><img src="img/logomin.png" class="normallogo"/></strong>
                     </a>
 
@@ -131,19 +131,19 @@
                         <!--Links-->
                         <ul class="navbar-nav mr-auto smooth-scroll">
                             <li class="nav-item">
-                                <a class="nav-link" href="#home">Accueil <span class="sr-only">(current)</span></a>
+                                <?php echo '<a class="nav-link" href="home.php">Accueil</a>';?>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#features">Voir les offres</a>
+                                <?php echo '<a class="nav-link" href="ad/ad_list.php">Voir les offres</a>';?>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#about" data-offset="100">Contactez-nous</a>
+                                <?php echo '<a class="nav-link" href="contact.php">Contactez-nous</a>';?>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#products" data-offset="100">Publier une annonce</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#testimonials" data-offset="100">Mon Compte</a>
+                                <?php if(isset($_SESSION['id']) && isset($_SESSION['email'])){echo '<a class="nav-link" href="account.php">Mon Compte</a>';} else {echo '<a class="nav-link" data-toggle="modal" data-target="#modal-reservation">S\'inscrire</a>';}?>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link wcomlink" href="#contact" data-target="#modal-contact">Welcomed Community</a>
@@ -178,40 +178,69 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title w-100">Resrervation Form</h4>
+                            <h4 class="modal-title w-100">Formulaire d'inscription</h4>
                         </div>
                         <!--Body-->
-                        <div class="modal-body">
-                            <div class="md-form">
-                                <input type="text" id="form22" class="form-control">
-                                <label for="form42">Your Full Name</label>
-                            </div>
-
-                            <div class="md-form">
-                                <input type="text" id="form32" class="form-control">
-                                <label for="form34">Your Email</label>
-                            </div>
-
-                            <div class="md-form">
-                                <input type="text" id="form32" class="form-control">
-                                <label for="form34">Your Phone Number</label>
-                            </div>
-
-                            <select class="mdb-select colorful-select dropdown-default">
-                                <option value="1">One Person</option>
-                                <option value="2">Two Persons</option>
-                                <option value="3">Three Persons</option>
-                                <option value="4">More</option>
-                            </select>
-
-                            <div class="text-center">
-                                <button class="btn btn-lg btn-rounded btn-primary">Send Information</button>
-                                <p class="text-muted">*Some dummy text goes here.</p>
-
-                                <div class="call">
-                                    <p>Or you prefer book a table by phone? <span class="cf-phone"><i class="fa fa-phone"></i>+01 234 565 280</span></p>
+                        <div class="modal-body" id="modal-content">
+                            
+                            <form id="subscribe" method="post" enctype="multipart/form-data">
+                                
+                                <select class="mdb-select colorful-select dropdown-default" name="profession1" id="profession1">
+                                <option value="none">--- Choisir votre profession ---</option>
+                                <?php foreach($professionAvailable as $value){ echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';} ?>
+                                </select>
+                                
+                                <div class="md-form">
+                                    <input type="text" name="firstname" id="firstname" class="form-control">
+                                    <label for="firstname">Votre Nom</label>
                                 </div>
-                            </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="lastname" id="lastname" class="form-control">
+                                    <label for="lastname">Votre Prénom</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="address" id="address" class="form-control">
+                                    <label for="address">Adresse</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="zipcode" id="zipcode" class="form-control">
+                                    <label for="zipcode">Code Postal</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="city1" id="city1" class="form-control">
+                                    <label for="city1">Ville</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="department" id="department" class="form-control">
+                                    <label for="department">Département</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="telephone" id="telephone" class="form-control">
+                                    <label for="telephone">Téléphone</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="email" id="email" class="form-control">
+                                    <label for="email">Email</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="password" name="password" id="password" class="form-control">
+                                    <label for="password">Mot de Passe</label>
+                                </div>
+
+                                <div class="text-center">
+                                    <button class="btn btn-lg btn-rounded btn-primary" id="sbt">S'inscrire</button>
+                            <!--                                <p class="text-muted">*Some dummy text goes here.</p>-->
+                                </div>
+                            </form>
+                       
                         </div>
                         <!--Footer-->
                         <div class="modal-footer">
@@ -267,36 +296,7 @@
                                         <p>Pour tout renseignement ou demande de contact, veuillez remplir ce formulaire. Nous vous répondrons dans les plus brefs délais.</p>
 
                                         <?php if(isset($success)): // La variable $success n'existe que lorsque tout est ok ?>
-                                        <div class="col-sm-6"><p style="color:green"><?php echo $success; ?></p>
-
-                                            <p style="color:white"><strong>Infos saisies :</strong></p>
-                                            <ul>
-                                                <?php 
-                                                foreach($user as $key => $value){
-                                                    if($key == 'lastname'){
-                                                        echo '<li><i class="glyphicon glyphicon-user" aria-hidden="true"></i> '.strtoupper($value);
-                                                    }
-                                                    elseif($key == 'firstname'){
-                                                        echo ' '.ucwords($value).'</li>';
-                                                    }
-                                                    elseif($key == 'email'){
-                                                        echo '<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i> '.$value.'</li>';
-                                                    }
-                                                    elseif($key == 'phone'){
-                                                        echo '<li><i class="glyphicon glyphicon-phone-alt" aria-hidden="true"></i> '.$value.'</li>';
-                                                    }
-                                                    elseif($key == 'address'){
-                                                        echo '<li><i class="glyphicon glyphicon-home" aria-hidden="true"></i> '.$value.'</li>';
-                                                    }
-                                                    elseif($key == 'zipcode'){
-                                                        echo '<li><i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i> '.$value.'</li>';
-                                                    }
-                                                    elseif($key == 'city'){
-                                                        echo '<li><i class="glyphicon glyphicon-globe" aria-hidden="true"></i> '.$value.'</li>';
-                                                    }
-                                                }
-                                                ?>
-                                            </ul></div>
+                                        <div class="col-sm-6"><p style="color:green"><?php echo $success; ?></p></div>
 
                                         <?php endif; ?> 
 
@@ -463,7 +463,7 @@
             <!--Copyright-->
             <div class="footer-copyright wow fadeIn" data-wow-delay="0.3s">
                 <div class="container-fluid">
-                    © 2017 Copyright: Welcomed </a>
+                    <p>© 2017 Copyright: Welcomed</p>
                 </div>
             </div>
             <!--/Copyright-->
