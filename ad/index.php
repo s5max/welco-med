@@ -1,8 +1,8 @@
 <?php
-session_start();
-var_dump($_SESSION);
+
 	require('../include/connect.php');
 	require('../include/header.php');
+var_dump($_SESSION);
 	
 	$select = $bdd->prepare('SELECT profession_id,offer_id,city_id FROM ad');
 
@@ -303,7 +303,7 @@ var_dump($_SESSION);
             </div>
             <!--/Modal log-->
             
-            
+     
             
             
             

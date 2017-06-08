@@ -27,13 +27,13 @@ session_start();
 
                 if(password_verify($post['password'],$user['password'])){
                     unset($user['password']);
-                    
+                    unset($_SESSION);
                     $_SESSION['user'] = $user;
                     
 //                    header('location:/WELCOMED2/user/index.php');
 					
                     echo '<p>Vous êtes maintenant connecté à votre compte!</p><button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Reprendre là où j\'en étais</button>
-					<script>$(\'#no-log\').css(\'display\',\'none\');$(\'#contact\').removeAttr(\'disabled\');</script>';
+					<script>$(\'#no-log\').css(\'display\',\'none\');$(\'#contact\').removeAttr(\'disabled\');</script>';#
                 
                 }
                 else{

@@ -52,9 +52,6 @@ if(!empty($_POST)){
 		if($insert->execute()){
 			echo'Votre message a bien été envoyé à l\'annonceur';
 		}
-		else{
-			var_dump($insert->errorInfo());	
-		}
 		
 	}
 	else{

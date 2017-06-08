@@ -864,7 +864,7 @@
 				$.ajax({
 					
 					type	: 'post',
-					url		: '/GIT/welco-med/import/select.php',
+					url		: '/git/welco-med/import/select.php',
 					data	: {
 							profession_id	: $('#profession').val(),
 							offer_id	: $('#type').val(),

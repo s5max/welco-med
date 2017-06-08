@@ -19,7 +19,44 @@
             var_dump($selectOne->errorInfo());
             die; // alias de exit(); => die('Hello world');
         }
-    }   
+    }
+
+
+
+	$select = $bdd->prepare('SELECT * FROM profession');
+
+	if($select->execute()){
+
+		$professionAvailable = $select->fetchAll(PDO::FETCH_ASSOC);
+
+	}
+
+	$select = $bdd->prepare('SELECT * FROM offer');
+
+	if($select->execute()){
+
+		$offerAvailable = $select->fetchAll(PDO::FETCH_ASSOC);
+
+		$offer = [];
+		$demand = [];
+		foreach($offerAvailable as $value){
+			if($value['id']<5){
+				$offer[] = [$value['id'],$value['type']];
+			}
+			elseif($value['id']>4){
+				$demand[] = [$value['id'],$value['type']];
+			}
+		}
+		
+	}
+
+	$select = $bdd->prepare('SELECT * FROM city');
+
+	if($select->execute()){
+
+		$cityAvailable = $select->fetchAll(PDO::FETCH_ASSOC);
+
+	}
 
 ?>
 <!DOCTYPE html>
@@ -103,7 +140,7 @@
                                 <?php echo '<a class="nav-link" href="contact.php">Contactez-nous</a>';?>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#products" data-offset="100">Publier une annonce</a>
+                                <a class="nav-link" href="#products" data-offset="100" data-toggle="modal" data-target="#modal-step1">Publier une annonce</a>
                             </li>
                             <li class="nav-item">
                                 <?php if(isset($_SESSION['id']) && isset($_SESSION['email'])){echo '<a class="nav-link" href="account.php">Mon Compte</a>';} else {echo '<a class="nav-link" data-toggle="modal" data-target="#modal-reservation">S\'inscrire</a>';}?>
@@ -179,8 +216,8 @@
                                 </div>
 
                                 <div class="md-form">
-                                    <input type="text" name="department" id="department" class="form-control">
-                                    <label for="department">Département</label>
+                                    <input type="text" name="department1" id="department1" class="form-control">
+                                    <span><label for="department1">Département</label></span>
                                 </div>
 
                                 <div class="md-form">
@@ -214,6 +251,244 @@
                 </div>
             </div>
             <!--/Modal Reservation-->
+            
+            
+            
+            <!--Modal step 1-->
+            <div class="modal fade modal-ext" id="modal-step1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                       <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Publier une annonce : Etape 1</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-step1-content">
+                        
+                        	<form id="step1Form" method="post" enctype="multipart/form-data">
+                        	
+								<select name="type" id="type" class="form-control">
+									<option value="none" selected disabled>-- Type d'annonce --</option>
+													<!-- On réutilise notre array() ci-dessus -->
+									<optgroup label="Offre">
+									<?php foreach($offer as $value){
+											echo'<option value="'.$value[0].'">'.$value[1].'</option>';
+
+										}//End foreach ?>
+									<optgroup label="Demande">
+									<?php foreach($demand as $value){
+											echo'<option value="'.$value[0].'">'.$value[1].'</option>';
+
+									}//End foreach ?>
+								</select>
+
+								<select name="profession" id="profession" class="form-control">
+										<option value="none">--- Choisir votre proffession ---</option>
+										<?php foreach($professionAvailable as $value){ echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';} ?>
+								</select>
+
+								<div class="md-form">
+									<input type="text" id="department" name="department" class="form-control" value="Martinique" disabled>
+									<label for="department">Département</label>
+								</div>
+
+								<div class="md-form">
+									<select name="city" id="city" class="form-control">
+										<option value="none" selected disabled>-- Commune --</option>
+										<?php foreach ($cityAvailable as $value): ?>
+											<option value="<?=$value['id'];?>"><?=$value['name'];?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="date_start" id="date_start" placeholder="jj/mm/aaaa">
+									<label for="date_start">Date de début</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="date_end" id="date_end" placeholder="jj/mm/aaaa">
+									<label for="date_end">Date de fin</label>
+								</div>
+
+								<div class="text-center">
+
+									<button id="step1" class="btn btn-lg btn-rounded btn-primary">Suivant</button>
+
+								</div>
+                      
+							</form>
+                       
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Fermer*</button>
+                            <p class="text-muted">*Les informations ne seront pas enregistrées</p>
+                        </div>
+                        
+ 		            </div>
+                    <!--/Content-->
+                </div>
+            </div>
+			<!--/Modal step 1-->
+           
+           
+           
+           
+           	<!--Modal step 2-->
+            <div class="modal fade modal-ext" id="modal-step2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                       <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Publier une annonce : Etape 2</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-step2-content">
+                        
+                        	<form id="step2Form" method="post" enctype="multipart/form-data">
+                        	
+								<div class="md-form">
+									<label for="opening">Heure d'Ouverture</label>
+									<input type="text" name="opening" id="opening" placeholder="hh:mm">
+								</div>
+
+								<div class="md-form">
+									<label for="closing">Heure de Fermeture</label>
+									<input type="text" name="closing" id="closing" placeholder="hh:mm">
+								</div>
+
+								<div class="md-form">
+									<label for="secretary">Présence d'une secrétaire</label>
+									<span>Oui</span>
+									<span>Non</span>
+								</div>
+
+								<label for="payment">Règlements Acceptés</label>
+
+									<span>CB</span>
+									<span>Chèque</span>
+									<span>Espèces</span>
+
+								<label for="access">Accès Handicapé</label><p>
+
+									<span>Oui</span>
+									<span>Non</span>
+
+								<div class="text-center">
+
+									<button id="step2" class="btn btn-lg btn-rounded btn-primary">Suivant</button>
+
+								</div>
+                      
+							</form>
+                       
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Fermer*</button>
+                            <p class="text-muted">*Les informations ne seront pas enregistrées</p>
+                        </div>
+                        
+ 		            </div>
+                    <!--/Content-->
+                </div>
+            </div>
+			<!--/Modal step 2-->
+            
+            
+            
+            <!--Modal step 3-->
+            <div class="modal fade modal-ext" id="modal-step3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                       <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Publier une annonce : Etape 3</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-step3-content">
+                        
+                        	<form id="step3Form" method="post" enctype="multipart/form-data">
+                        	
+								
+
+								<div class="text-center">
+
+									<button id="step3" class="btn btn-lg btn-rounded btn-primary">Suivant</button>
+
+								</div>
+                      
+							</form>
+                       
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Fermer*</button>
+                            <p class="text-muted">*Les informations ne seront pas enregistrées</p>
+                        </div>
+                        
+ 		            </div>
+                    <!--/Content-->
+                </div>
+            </div>
+			<!--/Modal step 3-->
+           
+           
+           <!--Modal step 4-->
+            <div class="modal fade modal-ext" id="modal-step4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                       <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Publier une annonce : Etape 4</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-step4-content">
+                        
+                        	<form id="step4Form" method="post" enctype="multipart/form-data">
+                        	
+								
+
+								<div class="text-center">
+
+									<button id="step4" class="btn btn-lg btn-rounded btn-primary">Suivant</button>
+
+								</div>
+                      
+							</form>
+                       
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Fermer*</button>
+                            <p class="text-muted">*Les informations ne seront pas enregistrées</p>
+                        </div>
+                        
+ 		            </div>
+                    <!--/Content-->
+                </div>
+            </div>
+			<!--/Modal step 4-->
+            
+            
+            
 
         </header>
         <!--/Navigation & Intro-->
@@ -476,6 +751,107 @@
   ga('send', 'pageview');
 
 </script>
+   
+    
+<script>
+				
+	$('#step1').on('click',function(e){
+		
+		e.preventDefault();
+		
+		$.ajax({
+			
+			type	: 'post',
+			url		: '/git/welco-med/import/check_step1.php',
+			data	: {
+				
+				type		: $('#type').val(),
+				profession	: $('#profession').val(),
+				department	: $('#department').val(),
+				city		: $('#city').val(),
+				date_start	: $('#date_start').val(),
+				date_end	: $('#date_end').val()
+			},
+			success : function(o){
+				
+				$('#modal-step1-content').prepend('<p class="text-danger">'+o+'</p>');
+			}
+			
+		});
+		
+	});
+	
+	
+	$('#step2').on('click',function(e){
+		
+		e.preventDefault();
+		
+		$.ajax({
+			
+			type	: 'post',
+			url		: '/git/welco-med/import/check_step2.php',
+			data	: {
+				
+//						: $('#').val(),
+				
+			},
+			success : function(o){
+				console.log()
+				$('#modal-step2-content').prepend('<p class="text-danger">'+o+'</p>');
+			}
+			
+		});
+		
+	});
+	
+	
+	$('#step3').on('click',function(e){
+		
+		e.preventDefault();
+		
+		$.ajax({
+			
+			type	: 'post',
+			url		: '/git/welco-med/import/check_step3.php',
+			data	: {
+				
+//						: $('#').val(),
+				
+			},
+			success : function(o){
+				console.log()
+				$('#modal-step3-content').prepend('<p class="text-danger">'+o+'</p>');
+			}
+			
+		});
+		
+	});
+	
+	$('#step4').on('click',function(e){
+		
+		e.preventDefault();
+		
+		$.ajax({
+			
+			type	: 'post',
+			url		: '/git/welco-med/import/check_step4.php',
+			data	: {
+				
+//						: $('#').val(),
+				
+			},
+			success : function(o){
+				console.log()
+				$('#modal-step4-content').prepend('<p class="text-danger">'+o+'</p>');
+			}
+			
+		});
+		
+	});
+				
+</script>
+    
+    
 
     </body>
 
