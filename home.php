@@ -828,7 +828,7 @@
             <!--Copyright-->
             <div class="footer-copyright wow fadeIn" data-wow-delay="0.3s">
                 <div class="container-fluid">
-                    © 2017 Copyright: <a href="https://www.MDBootstrap.com" rel="nofollow"> MDBootstrap.com </a>
+                    <p>© 2017 Copyright: Welcomed</p>
                 </div>
             </div>
             <!--/Copyright-->
