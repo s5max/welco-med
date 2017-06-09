@@ -365,11 +365,26 @@
 									<label for="closing">Heure de Fermeture</label>
 									<input type="text" name="closing" id="closing" placeholder="hh:mm">
 								</div>
-
-								<div class="md-form">
-									<label for="secretary">Présence d'une secrétaire</label>
+								
+								
+<!--
+								<ul class="option">
+									<h5>Présence d'une secrétaire</h5>
+									<li>Oui</li>
+									<li>Non</li>
+								</ul>
+-->
+								
+								<p>Présence d'une secrétaire</p>
+								<div class="option">
 									<span>Oui</span>
 									<span>Non</span>
+								</div>
+
+								<div class="md-form option">
+									<label for="secretary">Présence d'une secrétaire</label>
+									<span data-id="secretary" data-info="o">Oui</span>
+									<span data-id="secretary" data-info="n">Non</span>
 								</div>
 
 								<label for="payment">Règlements Acceptés</label>
@@ -754,6 +769,15 @@
    
     
 <script>
+	
+	$('.option>span').click(function(e){
+        $(this).siblings().css('border','solid #ccc 1px');
+        $(this).css('border','solid #000 2px');
+        
+        var key     = $(this).data('id');
+        var value   = $(this).data('info');
+		
+	});
 				
 	$('#step1').on('click',function(e){
 		
@@ -790,11 +814,11 @@
 			
 			type	: 'post',
 			url		: '/git/welco-med/import/check_step2.php',
-			data	: {
-				
-//						: $('#').val(),
-				
-			},
+//			data	: {
+//				
+////						: $('#').val(),
+//				
+//			},
 			success : function(o){
 				console.log()
 				$('#modal-step2-content').prepend('<p class="text-danger">'+o+'</p>');
@@ -848,6 +872,7 @@
 		});
 		
 	});
+
 				
 </script>
     
