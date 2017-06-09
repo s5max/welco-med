@@ -1,7 +1,10 @@
 <?php
 
 	require('include/connect.php');
+	require('include/header.php');
 	
+//var_dump($_SESSION);
+
 	$select = $bdd->prepare('SELECT profession_id,offer_id,city_id FROM ad');
 
 	if($select->execute()){
@@ -143,9 +146,13 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#products" data-offset="100">Publier une annonce</a>
                             </li>
-                            <li class="nav-item">
-                                <?php if(isset($_SESSION['id']) && isset($_SESSION['email'])){echo '<a class="nav-link" href="account.php">Mon Compte</a>';} else {echo '<a class="nav-link" data-toggle="modal" data-target="#modal-reservation">S\'inscrire</a>';}?>
-                            </li>
+                           
+                            <?php 	if(isset($_SESSION['user']['id'])){
+										echo'<li class="nav-item"><a class="nav-link" href="account.php">Mon Compte</a></li>';
+									}
+									
+							?>
+                            
                             <li class="nav-item">
                                 <a class="nav-link wcomlink" href="#about" data-target="#modal-contact">Welcomed Community</a>
                             </li>
@@ -163,6 +170,17 @@
                                 <a class="nav-link"><i class="fa fa-instagram"></i></a>
                             </li>
                         </ul>
+                        
+<!--
+                        <ul class="navbar-nav mr-auto smooth-scroll">
+                        
+                        	<?php 	/*if(!isset($_SESSION['user']['id'])){
+										echo'<li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#modal-reservation">S\'inscrire</a></li><li class="nav-item"><a class="nav-link" data-toggle="modal" data-target="#modal-log">Se connecter</a></li>';
+									}*/
+							?>
+                        
+						</ul>
+-->
 
                     </div>
                 </div>

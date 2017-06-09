@@ -31,7 +31,7 @@
                                 <a class="nav-link" data-offset="100" data-toggle="modal" data-target="#modal-step1">Publier une annonce</a>
                             </li>
                             <li class="nav-item">
-                                <?php if(isset($_SESSION['id']) && isset($_SESSION['email'])){echo '<a class="nav-link" href="account.php">Mon Compte</a>';} else {echo '<a class="nav-link" data-toggle="modal" data-target="#modal-reservation">Se Connecter</a>';}?>
+                                <?php if(isset($_SESSION['user']['id']) && isset($_SESSION['email'])){echo '<a class="nav-link" href="account.php">Mon Compte</a>';} else {echo '<a class="nav-link" data-toggle="modal" data-target="#modal-reservation">Se Connecter</a>';}?>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link wcomlink" href="#contact" data-target="#modal-contact">Welcomed Community</a>
