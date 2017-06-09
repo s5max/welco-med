@@ -241,18 +241,18 @@
 								</div>
 
 								<div class="md-form">
-									<input type="text" name="department" id="department" class="form-control">
-									<label for="department">Département</label>
+									<input type="text" name="department" id="department1" class="form-control">
+									<label for="department1">Département</label>
 								</div>
 
 								<div class="md-form">
-									<input type="text" name="telephone" id="telephone" class="form-control">
+									<input type="text" name="telephone" id="telephone1" class="form-control">
 									<label for="telephone">Téléphone</label>
 								</div>
 
 								<div class="md-form">
-									<input type="text" name="email" id="email" class="form-control">
-									<label for="email">Email</label>
+									<input type="text" name="email" id="email1" class="form-control">
+									<label for="email1">Email</label>
 								</div>
 
 								<div class="md-form">
@@ -276,6 +276,47 @@
                 </div>
             </div>
             <!--/Modal Reservation-->
+            
+            <!--Modal log-->
+            <div class="modal fade modal-ext" id="modal-log" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                       <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Se Connecter</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-log-content">
+                            <div class="md-form">
+                                <input type="text" id="email_log" name="email_log" class="form-control">
+                                <label for="form42">Email</label>
+                            </div>
+
+                            <div class="md-form">
+                                <input type="password" id="password_log" name="password_log" class="form-control">
+                                <label for="password_log">Mot de passe</label>
+                            </div>
+
+                            <div class="text-center">
+                               
+                                <button id="log" class="btn btn-lg btn-rounded btn-primary">Connexion</button>
+                               
+                            </div>
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!--/Content-->
+                </div>
+            </div>
+            <!--/Modal log-->
+            
 
         </header>
         <!--/Navigation & Intro-->
@@ -934,6 +975,30 @@
 					});
 					
 				}
+				
+			});
+			
+			
+			$('#log').on('click', function(e){
+				
+				e.preventDefault();
+					
+					$.ajax({
+						  type: 'post',
+						  url: '/GIT/welco-med/import/log.php',
+						  data: { 
+
+							  email			: $('#email_log').val(),
+							  password		: $('#password_log').val(),
+
+						  }
+
+					}).done(function(o){
+						console.log(o);
+						$('#modal-log-content').html(o);
+
+					});
+					
 				
 			});
 			

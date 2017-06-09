@@ -2,7 +2,7 @@
 
 	require('../include/connect.php');
 	require('../include/header.php');
-var_dump($_SESSION);
+
 	
 	$select = $bdd->prepare('SELECT profession_id,offer_id,city_id FROM ad');
 

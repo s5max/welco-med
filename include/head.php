@@ -140,7 +140,45 @@
             </div>
             <!--/Modal Reservation-->
             
-            
+             <!--Modal log-->
+            <div class="modal fade modal-ext" id="modal-log" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                       <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Se Connecter</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-log-content">
+                            <div class="md-form">
+                                <input type="text" id="email_log" name="email_log" class="form-control">
+                                <label for="form42">Email</label>
+                            </div>
+
+                            <div class="md-form">
+                                <input type="password" id="password_log" name="password_log" class="form-control">
+                                <label for="password_log">Mot de passe</label>
+                            </div>
+
+                            <div class="text-center">
+                               
+                                <button id="log" class="btn btn-lg btn-rounded btn-primary">Connexion</button>
+                               
+                            </div>
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!--/Content-->
+                </div>
+            </div>
+            <!--/Modal log-->           
             
             
             

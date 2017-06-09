@@ -112,3 +112,72 @@
 
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="js/mdb.min.js"></script>
+        
+       	<script>
+
+			$('#sbt').on('click', function(e){
+				
+				e.preventDefault();
+				
+				var profession = $('#profession1').val();
+				
+				if(profession === 'none'){
+					
+					$('#modal-content').append('<p>Vous devez choisir un métier avant de valider le formulaire');
+				}
+				else{
+					
+					$.ajax({
+						  type: 'post',
+						  url: '/GIT/welco-med/import/check.php',
+						  data: { 
+
+							  profession    : $('#profession1').val(),
+							  name			: $('#profession1 option:selected').text(),
+							  firstname		: $('#firstname').val(),
+							  lastname		: $('#lastname').val(),
+							  address		: $('#address').val(),
+							  zipcode		: $('#zipcode').val(),
+							  city			: $('#city1').val(),
+							  department	: $('#department1').val(),
+							  telephone		: $('#telephone1').val(),
+							  email			: $('#email1').val(),
+							  password		: $('#password').val(),
+
+						  }
+
+					}).done(function(o){
+						//console.log(o);
+						$('#modal-content').html(o);
+
+					});
+					
+				}
+				
+			});
+			
+			
+			$('#log').on('click', function(e){
+				
+				e.preventDefault();
+					
+					$.ajax({
+						  type: 'post',
+						  url: '/GIT/welco-med/import/log.php',
+						  data: { 
+
+							  email			: $('#email_log').val(),
+							  password		: $('#password_log').val(),
+
+						  }
+
+					}).done(function(o){
+						console.log(o);
+						$('#modal-log-content').html(o);
+
+					});
+					
+				
+			});
+
+		</script>
