@@ -28,7 +28,7 @@
                                 <?php echo '<a class="nav-link" href="contact.php">Contactez-nous</a>';?>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#products" data-offset="100">Publier une annonce</a>
+                                <a class="nav-link" data-offset="100" data-toggle="modal" data-target="#modal-step1">Publier une annonce</a>
                             </li>
                             <li class="nav-item">
                                 <?php if(isset($_SESSION['id']) && isset($_SESSION['email'])){echo '<a class="nav-link" href="account.php">Mon Compte</a>';} else {echo '<a class="nav-link" data-toggle="modal" data-target="#modal-reservation">Se Connecter</a>';}?>
@@ -104,18 +104,18 @@
                                 </div>
 
                                 <div class="md-form">
-                                    <input type="text" name="department" id="department" class="form-control">
-                                    <label for="department">Département</label>
+                                    <input type="text" name="department1" id="department1" class="form-control">
+                                    <label for="department1">Département</label>
                                 </div>
 
                                 <div class="md-form">
-                                    <input type="text" name="telephone" id="telephone" class="form-control">
-                                    <label for="telephone">Téléphone</label>
+                                    <input type="text" name="telephone" id="telephone1" class="form-control">
+                                    <label for="telephone1">Téléphone</label>
                                 </div>
 
                                 <div class="md-form">
-                                    <input type="text" name="email" id="email" class="form-control">
-                                    <label for="email">Email</label>
+                                    <input type="text" name="email" id="email1" class="form-control">
+                                    <label for="email1">Email</label>
                                 </div>
 
                                 <div class="md-form">
@@ -139,6 +139,13 @@
                 </div>
             </div>
             <!--/Modal Reservation-->
+            
+            
+            
+            
+            
+            
+            
 
         </header>
         <!--/Navigation & Intro-->

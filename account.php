@@ -2,22 +2,24 @@
     require('include/connect.php');
     require('include/header.php');
 
-    if(isset($_SESSION['id']) && !empty($_SESSION['id'])){
+	$_SESSION['user'] = ['id'=>1,'firstname'=>'Moi','email'=>'user@mail.com','telephone'=>'0601020304'];
 
-        $idUser = (int) $_SESSION['id'];
-
-        // Jointure SQL permettant de récupérer la recette & le prénom & nom de l'utilisateur l'ayant publié
-        $selectOne = $bdd->prepare('SELECT u.* FROM user AS u WHERE id = :id');
-        $selectOne->bindValue(':id', $idUser, PDO::PARAM_INT);
-        if($selectOne->execute()){
-            $user = $selectOne->fetch(PDO::FETCH_ASSOC);
-        }
-        else {
-            // Erreur de développement
-            var_dump($selectOne->errorInfo());
-            die; // alias de exit(); => die('Hello world');
-        }
-    }
+//    if(isset($_SESSION['id']) && !empty($_SESSION['id'])){
+//
+//        $idUser = (int) $_SESSION['id'];
+//
+//        // Jointure SQL permettant de récupérer la recette & le prénom & nom de l'utilisateur l'ayant publié
+//        $selectOne = $bdd->prepare('SELECT u.* FROM user AS u WHERE id = :id');
+//        $selectOne->bindValue(':id', $idUser, PDO::PARAM_INT);
+//        if($selectOne->execute()){
+//            $user = $selectOne->fetch(PDO::FETCH_ASSOC);
+//        }
+//        else {
+//            // Erreur de développement
+//            var_dump($selectOne->errorInfo());
+//            die; // alias de exit(); => die('Hello world');
+//        }
+//    }
 
 
 
@@ -103,14 +105,444 @@
 
         <!-- Your custom styles (optional) -->
         <link href="css/style.css" rel="stylesheet">
+        
+        <style>
+		
+			.lbl {
+				color: #757575;
+				font-size: 1rem;
+				margin-bottom: 0rem;
+				font-weight: bold;
+			}
+			
+			.option {
+				padding: 10px;
+			}
+			
+			.option > span {
+				padding: 8px;
+				border: solid #ccc 1px;
+				border-radius: 2px;
+				color: #ccc;
+				cursor: pointer;
+			}
+		
+			
+			
+		
+		</style>
 
     </head>
 
     <body class="cyan-skin intro-page cafe-lp">
 
-
+<a id="tostep2" class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-step2">Etape 2</a>
+       
+<a id="tostep3" class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-step3a">Etape 3</a>
+     
+<a id="tostep4" class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-step4">Etape 4</a>  
+       
         <?php include 'include/head.php'; ?>
->>>>>>> origin/dev_clone
+
+        
+        <!--Modal Reservation-->
+            <div class="modal fade modal-ext" id="modal-reservation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                        <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Formulaire d'inscription</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-content">
+                            
+                            <form id="subscribe" method="post" enctype="multipart/form-data">
+                                
+                                <select class="mdb-select colorful-select dropdown-default" name="profession1" id="profession1">
+                                <option value="none">--- Choisir votre profession ---</option>
+                                <?php foreach($professionAvailable as $value){ echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';} ?>
+                                </select>
+                                
+                                <div class="md-form">
+                                    <input type="text" name="firstname" id="firstname" class="form-control">
+                                    <label for="firstname">Votre Nom</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="lastname" id="lastname" class="form-control">
+                                    <label for="lastname">Votre Prénom</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="address" id="address" class="form-control">
+                                    <label for="address">Adresse</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="zipcode" id="zipcode" class="form-control">
+                                    <label for="zipcode">Code Postal</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="city1" id="city1" class="form-control">
+                                    <label for="city1">Ville</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="department1" id="department1" class="form-control">
+                                    <span><label for="department1">Département</label></span>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="telephone" id="telephone1" class="form-control">
+                                    <label for="telephone1">Téléphone</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="text" name="email" id="email1" class="form-control">
+                                    <label for="email1">Email</label>
+                                </div>
+
+                                <div class="md-form">
+                                    <input type="password" name="password" id="password" class="form-control">
+                                    <label for="password">Mot de Passe</label>
+                                </div>
+
+                                <div class="text-center">
+                                    <button class="btn btn-lg btn-rounded btn-primary" id="sbt">S'inscrire</button>
+                            <!--                                <p class="text-muted">*Some dummy text goes here.</p>-->
+                                </div>
+                            </form>
+                       
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!--/Content-->
+                </div>
+            </div>
+            <!--/Modal Reservation-->
+            
+            
+            
+            <!--Modal step 1-->
+            <div class="modal fade modal-ext" id="modal-step1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                       <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Publier une annonce : Etape 1</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-step1-content">
+                        
+                        	<form id="step1Form" method="post" enctype="multipart/form-data">
+                        	
+								<select name="type" id="type" class="form-control">
+									<option value="none" selected disabled>-- Type d'annonce --</option>
+													<!-- On réutilise notre array() ci-dessus -->
+									<optgroup label="Offre">
+									<?php foreach($offer as $value){
+											echo'<option value="'.$value[0].'">'.$value[1].'</option>';
+
+										}//End foreach ?>
+									<optgroup label="Demande">
+									<?php foreach($demand as $value){
+											echo'<option value="'.$value[0].'">'.$value[1].'</option>';
+
+									}//End foreach ?>
+								</select>
+
+								<select name="profession" id="profession" class="form-control">
+										<option value="none">--- Choisir votre proffession ---</option>
+										<?php foreach($professionAvailable as $value){ echo '<option value="'.$value['id'].'">'.$value['name'].'</option>';} ?>
+								</select>
+
+								<div class="md-form">
+									<input type="text" id="department" name="department" class="form-control" value="Martinique" disabled>
+									<label for="department">Département</label>
+								</div>
+
+								<div class="md-form">
+									<select name="city" id="city" class="form-control">
+										<option value="none" selected disabled>-- Commune --</option>
+										<?php foreach ($cityAvailable as $value): ?>
+											<option value="<?=$value['id'];?>"><?=$value['name'];?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="date_start" id="date_start" placeholder="jj/mm/aaaa">
+									<label for="date_start">Date de début</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="date_end" id="date_end" placeholder="jj/mm/aaaa">
+									<label for="date_end">Date de fin</label>
+								</div>
+
+								<div class="text-center">
+
+									<button id="step1" class="btn btn-lg btn-rounded btn-primary">Suivant</button>
+
+								</div>
+                      
+							</form>
+                       
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Fermer*</button>
+                            <p class="text-muted">*Les informations ne seront pas enregistrées</p>
+                        </div>
+                        
+ 		            </div>
+                    <!--/Content-->
+                </div>
+            </div>
+			<!--/Modal step 1-->
+           
+           
+           
+           
+           	<!--Modal step 2-->
+            <div class="modal fade modal-ext" id="modal-step2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                       <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Publier une annonce : Etape 2</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-step2-content">
+                        
+                        	<form id="step2Form" method="post" enctype="multipart/form-data">
+                        	
+								<div class="md-form">
+									<label for="opening">Heure d'Ouverture</label>
+									<input type="text" name="opening" id="opening" placeholder="hh:mm">
+								</div>
+
+								<div class="md-form">
+									<label for="closing">Heure de Fermeture</label>
+									<input type="text" name="closing" id="closing" placeholder="hh:mm">
+								</div>
+								
+								
+								<p class="lbl">Présence d'une secrétaire</p>
+								
+								<div class="option">
+									<span class="option" data-id="secretary" data-info="on">Oui</span>
+									<span class="option" data-id="secretary" data-info="off">Non</span>
+								</div>
+
+								
+								<p class="lbl">Règlements acceptés</p>
+								
+								<div class="option">
+									<span class="option2" data-id="cb" data-info="on">CB</span>
+									<span class="option2" data-id="check" data-info="on">Chèques</span>
+									<span class="option2" data-id="cash" data-info="on">Espèces</span>
+								</div>
+
+
+								<p class="lbl">Accès Handicapé</p>
+								
+								<div class="option">
+									<span class="option" data-id="access" data-info="on">Oui</span>
+									<span class="option" data-id="access" data-info="off">Non</span>
+								</div>
+
+								<div class="text-center">
+
+									<button id="step2" class="btn btn-lg btn-rounded btn-primary">Suivant</button>
+
+								</div>
+                      
+							</form>
+                       
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Fermer *</button>
+                            <p class="text-muted">*Les informations ne seront pas enregistrées</p>
+                        </div>
+                        
+ 		            </div>
+                    <!--/Content-->
+                </div>
+            </div>
+			<!--/Modal step 2-->
+            
+            
+            
+            <!--Modal step 3a-->
+            <div class="modal fade modal-ext" id="modal-step3a" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                       <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Publier une annonce : Etape 3</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-step3-content">
+                        
+                        	<form id="step3aForm" method="post" enctype="multipart/form-data">
+                        	
+								<p class="lbl">Lieu de consultation</p>
+								
+								<div class="option">
+									<span class="option2" data-id="office" data-info="on">Cabinet</span>
+									<span class="option2" data-id="home" data-info="on">Domicile(patient)</span>
+								</div>
+
+								<div class="md-form">
+									<input type="number" name="hour" id="hour" class="form-control">
+									<label for="hour">Heures travaillées / Semaine</label>
+								</div>
+
+								<div class="md-form">
+									<input type="number" name="patient" id="patient" class="form-control">
+									<label for="patient">Patients / Jour </label>
+								</div>
+
+								<div class="md-form">
+									<input type="number" name="salary" id="salary" class="form-control">
+									<label for="salary">Salaire / Mois</label>
+								</div>
+
+								<div class="md-form">
+									<input type="number" name="retrocession" id="retrocession" class="form-control">
+									<label for="retrocession">Rétrocession</label>
+								</div>
+
+								<label for="exercise">Type d'exercice</label>
+								<select name="exercise" id="exercise" class="form-control">
+									<option value="0" selected disabled>Sélectionner...</option>
+									<option value="SDF">SDF</option>
+									<option value="SCP">SCP</option>
+									<option value="SCM">SCM</option>
+									<option value="SEL">SEL</option>
+									<option value="SDP">SDP</option>
+									<option value="GIE">GIE</option>
+									<option value="Pôle de santé">Pôle de santé</option>
+									<option value="Individuel">Individuel</option>
+								</select>
+        
+								<div class="md-form">
+									<input type="number" name="nbPraticioner" id="nbPraticioner" class="form-control">
+									<label for="nbPraticioner">Nombre de praticiens</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="software" id="software" class="form-control">
+									<label for="software">Logiciel utilisé</label>
+								</div>
+
+								<div class="text-center">
+
+									<button id="step3" class="btn btn-lg btn-rounded btn-primary">Suivant</button>
+
+								</div>
+                      
+							</form>
+                       
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Fermer*</button>
+                            <p class="text-muted">*Les informations ne seront pas enregistrées</p>
+                        </div>
+                        
+ 		            </div>
+                    <!--/Content-->
+                </div>
+            </div>
+			<!--/Modal step 3a-->
+           
+           
+           <!--Modal step 4-->
+            <div class="modal fade modal-ext" id="modal-step4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <!--Content-->
+                    <div class="modal-content">
+                       <!--Header-->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title w-100">Publier une annonce : Etape 4</h4>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body" id="modal-step4-content">
+                        
+                        	<form id="step4Form" method="post" enctype="multipart/form-data">
+                        	
+								<div class="md-form">
+									<input type="text" name="title" id="title">
+									<label for="title">Titre de l'Annonce</label>
+								</div>
+
+								<div class="md-form">
+									<textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
+									<label for="description">Description</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="name" id="name" value="<?= ucfirst($_SESSION['user']['firstname']); ?>" class="form-control">
+									<label for="name">Nom de contact</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="email" id="email" value="<?= $_SESSION['user']['email']; ?>" class="form-control">
+									<label for="email">Email</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="telephone" id="telephone" value="<?= $_SESSION['user']['telephone']; ?>" class="form-control">
+									<label for="telephone">Téléphone</label>
+								</div>
+
+								<div class="text-center">
+
+									<button id="step4" class="btn btn-lg btn-rounded btn-primary">Suivant</button>
+
+								</div>
+                      
+							</form>
+                       
+                        </div>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Fermer*</button>
+                            <p class="text-muted">*Les informations ne seront pas enregistrées</p>
+                        </div>
+                        
+ 		            </div>
+                    <!--/Content-->
+                </div>
+            </div>
+			<!--/Modal step 4-->
+        
 
         <!--Main content-->
         <main class=" normalsection">
@@ -261,12 +693,31 @@
     
 <script>
 	
-	$('.option>span').click(function(e){
+	var reference = {};
+	
+	$('.option>span.option').click(function(e){
         $(this).siblings().css('border','solid #ccc 1px');
-        $(this).css('border','solid #000 2px');
+        $(this).css('border','solid #757575 2px');
+		$(this).css('color','#757575');
+		
         
         var key     = $(this).data('id');
         var value   = $(this).data('info');
+		
+		reference[key] = value;
+		
+	});
+	
+	$('.option>span.option2').click(function(e){
+        
+        $(this).css('border','solid #757575 2px');
+		$(this).css('color','#757575');
+		
+        
+        var key     = $(this).data('id');
+        var value   = $(this).data('info');
+		
+		reference[key] = value;
 		
 	});
 				
@@ -305,11 +756,17 @@
 			
 			type	: 'post',
 			url		: '/git/welco-med/import/check_step2.php',
-//			data	: {
-//				
-////						: $('#').val(),
-//				
-//			},
+			data	: {
+				
+				opening: $('#opening').val(),
+				closing: $('#closing').val(),
+				secretary:reference['secretary'],
+				cb:reference['cb'],
+				check:reference['check'],
+				cash:reference['cash'],
+				access:reference['access'],
+				
+			},
 			success : function(o){
 				console.log()
 				$('#modal-step2-content').prepend('<p class="text-danger">'+o+'</p>');
@@ -330,7 +787,15 @@
 			url		: '/git/welco-med/import/check_step3.php',
 			data	: {
 				
-//						: $('#').val(),
+				office:reference['office'],		
+				home:reference['home'],		
+				hour: $('#hour').val(),
+				patient: $('#patient').val(),
+				salary: $('#salary').val(),
+				retrocession: $('#retrocession').val(),
+				exercise: $('#exercise').val(),
+				nbPraticioner: $('#nbPraticioner').val(),
+				software: $('#software').val(),
 				
 			},
 			success : function(o){
@@ -352,7 +817,12 @@
 			url		: '/git/welco-med/import/check_step4.php',
 			data	: {
 				
-//						: $('#').val(),
+						title: $('#title').val(),
+						description: $('#description').val(),
+						name: $('#name').val(),
+						email:$('#email').val(),
+						telephone:$('#telephone').val(),
+						
 				
 			},
 			success : function(o){

@@ -923,9 +923,9 @@
 							  address		: $('#address').val(),
 							  zipcode		: $('#zipcode').val(),
 							  city			: $('#city1').val(),
-							  department	: $('#department').val(),
-							  telephone		: $('#telephone').val(),
-							  email			: $('#email').val(),
+							  department	: $('#department1').val(),
+							  telephone		: $('#telephone1').val(),
+							  email			: $('#email1').val(),
 							  password		: $('#password').val(),
 
 						  }

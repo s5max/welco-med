@@ -1,7 +1,7 @@
 <?php
-
+session_start();
+unset($_SESSION['post']);
 if(!empty($_POST)){
-
 
 	$error = [];
 	
@@ -39,13 +39,19 @@ if(!empty($_POST)){
             
         }
 	
-var_dump($error);
 	
 		if(count($error) === 0){
 			
-			$_SESSION['post'] = $post;
-			var_dump($_SESSION);
-			echo '<a id="tostep2" class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-step2">Inscription</a>
+//			$_SESSION['post']['info'][] = $post['user']['id'];
+			$_SESSION['post']['info']['type'] = $post['type'];
+			$_SESSION['post']['info']['profession'] = $post['profession'];
+			$_SESSION['post']['info']['city'] = $post['city'];
+			
+			$_SESSION['post']['detail']['department'] = $post['department'];
+			$_SESSION['post']['detail']['date_start'] = $post['date_start'];
+			if(isset($post['date_end'])){$_SESSION['post']['detail']['date_end'] = $post['date_end'];}
+			
+			echo '<a id="tostep2" class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-step2">Etape 2</a>
 			<script>$(\'#tostep2\').trigger(\'click\')</script>';
 			
 		}
