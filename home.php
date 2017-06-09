@@ -348,9 +348,6 @@
                         </div>
                             <div class="text-center">
                                <p id="nbAd"></p>
-                                <div class="col-sm-12">
-                                    <button type="submit" class="btn btn-primary">Rechercher</button>
-                                </div>
                             </div>
                         
                     </form>
