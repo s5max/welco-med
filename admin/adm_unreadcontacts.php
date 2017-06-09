@@ -21,7 +21,7 @@
         header('location: ../home.php');
     }
 
-    $select = $bdd->prepare('SELECT * FROM messages WHERE msgread = 0 ORDER BY id ASC');
+    $select = $bdd->prepare('SELECT * FROM messages WHERE msgread = 0 ORDER BY id DESC');
 
     if($select->execute()){
         $msgU = $select->fetchAll(PDO::FETCH_ASSOC);
@@ -74,7 +74,7 @@
                             </h1>
                             <ol class="breadcrumb">
                                 <li class="active">
-                                    <i class="fa fa-dashboard"> Listes des Utilisateurs</i> 
+                                    <i class="fa fa-dashboard"> Messages non lus</i> 
                                 </li>
                             </ol>
                         </div>
@@ -97,17 +97,17 @@
                             <!-- foreach permettant d'avoir une ligne <tr> par ligne SQL -->
                             <?php foreach($msgU as $msg): ?>
 
-                                <tr>
+                                <tr onclick="document.location='contact/adm_msg.php?id=<?=$msg['id']; ?>'">
                                     <td><?=$msg['id']; ?></td>
                                     <td><?=strtoupper($msg['lastname']); ?></td>
                                     <td><?=ucfirst($msg['firstname']); ?></td>
                                     <td><?=ucfirst($msg['object']); ?></td>
                                     <td>
-                                        <a href="message/adm_msg.php?id=<?=$msg['id']; ?>"><i class="fa fa-id-card" aria-hidden="true"></i></a>
+                                        <a href="contact/adm_msg.php?id=<?=$msg['id']; ?>"><i class="fa fa-id-card" aria-hidden="true"></i></a>
                                     </td>
                                     <td>
                                         <!-- view_menu.php?id=6 -->
-                                        <a href="message/adm_msgdelete.php?id=<?=$msg['id']; ?>" id="deleteb"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                        <a href="contact/adm_msgdelete.php?id=<?=$msg['id']; ?>" id="deleteb"><i class="fa fa-times" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
                             

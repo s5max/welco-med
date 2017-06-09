@@ -21,33 +21,58 @@
         header('location: ../../home.php');
     }
 
-    if(isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id'])){
-    $user_id = (int) $_GET['id'];
+    if(isset($_GET['id']) && !empty($_GET['id'])){
 
-    // On sélectionne l'utilisateur pour être sur qu'il existe et faire un rappel
-    $select = $bdd->prepare('SELECT * FROM user WHERE id = :idUser');
-    $select->bindValue(':idUser', $user_id, PDO::PARAM_INT);
+        $msgId = (int) $_GET['id'];
 
-    if($select->execute()){
-        $my_user = $select->fetch(PDO::FETCH_ASSOC);
-    }
-    if(!empty($_POST)){
-        // Si la valeur du champ caché ayant pour name="action" est égale a delete, alors je supprime
-        if(isset($_POST['action']) && $_POST['action'] === 'delete'){
-            $delete = $bdd->prepare('DELETE FROM user WHERE id = :idUser');
-            $delete->bindValue(':idUser', $user_id, PDO::PARAM_INT);
+        $select = $bdd->prepare('SELECT * FROM messages WHERE id = :msgid');
+        $select->bindValue(':msgid', $msgId, PDO::PARAM_INT);
 
-            if($delete->execute()){
-                $success = '<div class="alert alert-success">L\'utilisateur a été supprimé !</div>';
-                header("refresh:5;url=../adm_users.php");
-            }
-            else {
-                var_dump($delete->errorInfo()); 
-                die;
-            }
+        if($select->execute()){
+            $msg = $select->fetch(PDO::FETCH_ASSOC);
+        }
+        else {
+            // Erreur de développement
+            var_dump($msg->errorInfo());
+            die; // alias de exit(); => die('Hello world');
         }
     }
-}
+
+    $post = [];
+    $errors = [];
+    $success = '';
+    if(!empty($_POST)){
+
+        foreach($_POST as $key => $value){
+            $post[$key] = trim(strip_tags($value));
+        }
+
+        if(isset($post['msgread'])){
+            $check = 1;
+        }
+
+        if(count($errors) === 0)
+        {
+
+            $update = $bdd->prepare('UPDATE messages SET msgread = :msgread WHERE id = :id');
+            $update->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
+            $update->bindValue(':msgread', $check);
+
+
+            if($update->execute())
+            {
+                $success = 'Le message a été marqué comme lu !';
+            }
+            else
+            {
+                var_dump($update->errorInfo());
+            }
+        }
+        else
+        {
+            $textErrors = implode('<br>', $errors);
+        }
+    }
 
 ?><!DOCTYPE html>
 <html lang="fr">
@@ -130,7 +155,7 @@
             </nav>
 
             <div id="page-wrapper">
-
+            
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
@@ -141,36 +166,58 @@
                             </h1>
                             <ol class="breadcrumb">
                                 <li class="active">
-                                    <i class="fa fa-dashboard"> Supprimer l'utilisateur</i> 
+                                    <i class="fa fa-dashboard"> Message</i> 
                                 </li>
                             </ol>
                         </div>
                     </div>
                     <!-- /.row -->
-            
-                    <?php if(!isset($my_user) || empty($my_user)): ?>
-                        <p style="color:red">Désolé, aucun utilisateur correspondant</p>
-        
-                    <?php elseif(isset($success)): ?>
-                        <?php echo $success; ?>
-
-                    <?php else: ?>
-                    <div class="col-xs-12 deleteuser">
-                        <h2>Voulez-vous supprimer : <?=$my_user['firstname'].' '.$my_user['lastname']. ' - '.$my_user['email'];?></h2>
-
-                    <form method="post">
-                        
-                        <input type="hidden" name="action" value="delete">
-
-                        <!-- history.back() permet de revenir à la page précédente -->
-                        <button type="button" class="btn btn-default" onclick="javascript:history.back();">Annuler</button>
-                        <input type="submit" class="btn btn-primary" value="Supprimer cet utilisateur">
-                    </form>
-                    </div>
-
+                    <?php if($success == true): // La variable $success est envoyé via le controller?>
+                        <?php echo '<div class="alert alert-success">Le message a été marqué comme lu.</div>'; ?>
                     <?php endif; ?>
 
-                </div>
+                    <?php if(!empty($errors)): // La variable $errors est envoyé via le controller?>
+                        <?php echo '<div class="alert alert-danger">'.implode('<br>', $errors).'</div>'; ?>
+                    <?php endif; ?>
+
+                    <?php if(!empty($msg)): ?>
+                    <div class="col-md-12">
+                        <div class="col-md-12 panel panel-default r-p">
+                            <div class="panel-heading">
+                                    <h1 class="panel-title"><i class="fa fa-user-circle fa-fw"></i> Objet</h1>
+                            </div>
+                            <h4 class="wmpad"><?php echo $msg['object']; ?></h2>
+
+                            <ol class="breadcrumb">
+                                <li class="active">
+                                    <h4>Expéditeur :</h4>
+                                </li>
+                            </ol>
+                            <h4 class="wmpad"><?php echo $msg['lastname'].' '.$msg['firstname']; ?></h2>
+
+                            <ol class="breadcrumb">
+                                <li class="active">
+                                    <h4>Email :</h4>
+                                </li>
+                            </ol>
+                            <h4 class="wmpad"><?php echo '<a href="mailto:'.$msg['email'].'">'.$msg['email'].'</a>'; ?></h4>
+                               
+                            <ol class="breadcrumb">
+                                <li class="active">
+                                    <h4>Message :</h4>
+                                </li>
+                            </ol>
+                            <h4 class="wmpad"><?php echo $msg['message']; ?></h4>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
+                    <form id="read" method='post'>
+                        <input type="checkbox" name="msgread" value="1">
+
+                        <button type="submit">Marquer comme LU</button>
+                    </form>
+                    
             </div>
             <!-- /#page-wrapper -->
 
