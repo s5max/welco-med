@@ -140,12 +140,7 @@
     </head>
 
     <body class="cyan-skin intro-page cafe-lp">
-
-<a id="tostep2" class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-step2">Etape 2</a>
-       
-<a id="tostep3" class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-step3a">Etape 3</a>
-     
-<a id="tostep4" class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-step4">Etape 4</a>  
+ 
        
         <?php include 'include/head.php'; ?>
 
