@@ -127,8 +127,13 @@
 				cursor: pointer;
 			}
 		
+			.blind {
+				display:none;
+			}
 			
-			
+			.sight {
+				display:block;
+			}
 		
 		</style>
 
@@ -241,7 +246,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title w-100">Publier une annonce : Etape 1</h4>
+                            <h4 class="modal-title w-100">Publier une annonce : Etape 1/4</h4>
                         </div>
                         <!--Body-->
                         <div class="modal-body" id="modal-step1-content">
@@ -326,7 +331,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title w-100">Publier une annonce : Etape 2</h4>
+                            <h4 class="modal-title w-100">Publier une annonce : Etape 2/4</h4>
                         </div>
                         <!--Body-->
                         <div class="modal-body" id="modal-step2-content">
@@ -391,7 +396,7 @@
             
             
             
-            <!--Modal step 3a-->
+            <!--Modal step 3 -->
             <div class="modal fade modal-ext" id="modal-step3a" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <!--Content-->
@@ -401,12 +406,12 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title w-100">Publier une annonce : Etape 3</h4>
+                            <h4 class="modal-title w-100">Publier une annonce : Etape 3/4</h4>
                         </div>
                         <!--Body-->
                         <div class="modal-body" id="modal-step3-content">
-                        
-                        	<form id="step3aForm" method="post" enctype="multipart/form-data">
+                        	<!-- assistanat / remplacement -->
+                        	<form class="blind" id="step3aForm" method="post" enctype="multipart/form-data">
                         	
 								<p class="lbl">Lieu de consultation</p>
 								
@@ -435,7 +440,7 @@
 									<label for="retrocession">Rétrocession</label>
 								</div>
 
-								<label for="exercise">Type d'exercice</label>
+<!--								<label for="exercise">Type d'exercice</label>-->
 								<select name="exercise" id="exercise" class="form-control">
 									<option value="0" selected disabled>Sélectionner...</option>
 									<option value="SDF">SDF</option>
@@ -457,14 +462,119 @@
 									<input type="text" name="software" id="software" class="form-control">
 									<label for="software">Logiciel utilisé</label>
 								</div>
-
-								<div class="text-center">
-
-									<button id="step3" class="btn btn-lg btn-rounded btn-primary">Suivant</button>
-
-								</div>
                       
 							</form>
+							
+							<form class="blind" id="step3bForm" method="post" enctype="multipart/form-data">
+							
+								<div class="md-form">
+									<input type="number" name="sales" id="sales" class="form-control">
+									<label for="Chiffre_d'affaires">Chiffre d'affaires</label>
+								</div>
+
+								<div class="md-form">
+									<input type="number" name="partner" id="partner" class="form-control">
+									<label for="Nombres_d'associés">Nombres d'associés</label>
+								</div>
+								
+								<div class="option">
+									<span class="option2" data-id="office" data-info="on">Cabinet</span>
+									<span class="option2" data-id="home" data-info="on">Domicile(patient)</span>
+								</div>
+								
+								<div class="md-form">
+									<input type="number" name="patient" id="patient" class="form-control">
+									<label for="patient">Patients / Jour </label>
+								</div>
+								
+<!--							<label for="exercise">Type d'exercice</label>-->
+								<select name="exercise" id="exercise" class="form-control">
+									<option value="0" selected disabled>Sélectionner...</option>
+									<option value="SDF">SDF</option>
+									<option value="SCP">SCP</option>
+									<option value="SCM">SCM</option>
+									<option value="SEL">SEL</option>
+									<option value="SDP">SDP</option>
+									<option value="GIE">GIE</option>
+									<option value="Pôle de santé">Pôle de santé</option>
+									<option value="Individuel">Individuel</option>
+								</select>
+        
+								<div class="md-form">
+									<input type="number" name="nbPraticioner" id="nbPraticioner" class="form-control">
+									<label for="nbPraticioner">Nombre de praticiens</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="software" id="software" class="form-control">
+									<label for="software">Logiciel utilisé</label>
+								</div>
+								
+							</form>
+							
+							<form class="blind" id="step3cForm" method="post" enctype="multipart/form-data">
+							
+								<select name="contract" id="contract" class="form-control">
+									<option value="0" selected disabled>--- Type de Contrat ---</option>
+									<option value="CDD">CDD</option>
+									<option value="CDI">CDI</option>
+									<option value="Remplacement">Remplacement</option>
+									<option value="Autre">Autre</option>
+								</select>
+								
+								<div class="md-form">
+									<input type="text" name="company" id="company" class="form-control">
+									<label for="company">Entreprise</label>
+								</div>
+								
+								<div class="md-form">
+									<input type="number" name="salary" id="salary" class="form-control">
+									<label for="salary">Salaire / Mois</label>
+								</div>
+
+								<div class="md-form">
+									<input type="number" name="retrocession" id="retrocession" class="form-control">
+									<label for="retrocession">Rétrocession</label>
+								</div>
+								
+								<select name="Type_de_journée" id="Type_de_journée" class="form-control">
+									<option value="0" selected disabled>--- Type de journée ---</option>
+									<option value="Mi-Temps">Mi-temps</option>
+									<option value="Temps Plein">Temps plein</option>
+								</select>
+								
+<!--							<label for="exercise">Type d'exercice</label>-->
+								<select name="exercise" id="exercise" class="form-control">
+									<option value="0" selected disabled>Sélectionner...</option>
+									<option value="SDF">SDF</option>
+									<option value="SCP">SCP</option>
+									<option value="SCM">SCM</option>
+									<option value="SEL">SEL</option>
+									<option value="SDP">SDP</option>
+									<option value="GIE">GIE</option>
+									<option value="Pôle de santé">Pôle de santé</option>
+									<option value="Individuel">Individuel</option>
+								</select>
+        
+								<div class="md-form">
+									<input type="number" name="nbPraticioner" id="nbPraticioner" class="form-control">
+									<label for="nbPraticioner">Nombre de praticiens</label>
+								</div>
+
+								<div class="md-form">
+									<input type="text" name="software" id="software" class="form-control">
+									<label for="software">Logiciel utilisé</label>
+								</div>
+							
+							</form>
+							
+							
+							
+							<div class="text-center">
+
+								<button id="step3" class="btn btn-lg btn-rounded btn-primary">Suivant</button>
+
+							</div>
                        
                         </div>
                         <!--Footer-->
@@ -490,7 +600,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <h4 class="modal-title w-100">Publier une annonce : Etape 4</h4>
+                            <h4 class="modal-title w-100">Publier une annonce : Etape 4/4</h4>
                         </div>
                         <!--Body-->
                         <div class="modal-body" id="modal-step4-content">
@@ -768,8 +878,10 @@
 				
 			},
 			success : function(o){
-				console.log()
+				
 				$('#modal-step2-content').prepend('<p class="text-danger">'+o+'</p>');
+				var kind = $('#kind').text();
+				if(kind === '1'){$('#step3aForm').removeClass('blind');}else if(kind === '2'){$('#step3bForm').removeClass('blind');}else if(kind === '3'){$('#step3cForm').removeClass('blind');}
 			}
 			
 		});

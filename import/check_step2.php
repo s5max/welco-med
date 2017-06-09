@@ -47,7 +47,8 @@ if(!empty($_POST)){
 			foreach($post as $k => $v){
 				$_SESSION['post']['detail'][$k] = $v;
 			}
-			echo '<a id="tostep3" class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-step3">Etape 3</a><script>$(\'#tostep3\').trigger(\'click\')</script>';
+			echo '<a id="tostep3" class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-step3">Etape 3</a><script>$(\'#tostep3\').trigger(\'click\');
+			</script>';
 			
 		}
 		else{

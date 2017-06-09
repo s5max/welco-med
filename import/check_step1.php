@@ -51,7 +51,7 @@ if(!empty($_POST)){
 			$_SESSION['post']['detail']['date_start'] = $post['date_start'];
 			if(isset($post['date_end'])){$_SESSION['post']['detail']['date_end'] = $post['date_end'];}
 			
-			echo '<a id="tostep2" class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-step2">Etape 2</a>
+			echo '<p id="kind">'.$post['type'].'</p><a id="tostep2" class="btn btn-lg btn-rounded btn-primary" data-toggle="modal" data-target="#modal-step2">Etape 2</a>
 			<script>$(\'#tostep2\').trigger(\'click\')</script>';
 			
 		}
