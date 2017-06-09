@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 07 Juin 2017 à 21:22
+-- Généré le :  Jeu 08 Juin 2017 à 18:21
 -- Version du serveur :  10.1.21-MariaDB
 -- Version de PHP :  5.6.30
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `welcomed2`
 --
-CREATE DATABASE IF NOT EXISTS `welcomed2` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `welcomed2`;
 
 -- --------------------------------------------------------
 
@@ -104,6 +102,21 @@ CREATE TABLE `contact_advertiser` (
   `message` text NOT NULL,
   `vu` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `messages`
+--
+
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `object` varchar(255) NOT NULL,
+  `message` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf32;
 
 -- --------------------------------------------------------
 
@@ -195,6 +208,12 @@ ALTER TABLE `city`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `offer`
 --
 ALTER TABLE `offer`
@@ -226,6 +245,11 @@ ALTER TABLE `ad`
 --
 ALTER TABLE `city`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+--
+-- AUTO_INCREMENT pour la table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `offer`
 --
