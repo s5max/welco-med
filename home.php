@@ -203,7 +203,9 @@
                                         </div>
                                     </div>
                                     <h2 class="font-up white-text mb-2 hwelcomed">Une expérience libérale sous le Soleil de Martinique</h2>
-                                    <a href="#features" class="btn bienvenue" data-offset="100">Bienvenue</a>
+                                    <a href="#" class="btn wmregister" data-offset="100">S'inscrire</a>
+
+                                    <a href="#" class="btn wmlogin" data-offset="100">Se connecter</a>
                                 </div>
                             </div>
                         </div>
@@ -411,19 +413,6 @@
                         
                     </form>
                     </div>
-                    
-                    <div class="row">
-                            <h1 class="title normaltitle">Résultat de votre recherche</h1>
-                                <div class="col-sm-12">
-                                    <div class="col-md-12" id="search_result">
-
-                                    
-                                    <!--         Résultat de la recherche   	 -->
-        
-    
-                                    </div>
-                                </div>
-						</div>
 
                 </section>
                 <!--/Section: Features v.4-->
@@ -906,23 +895,6 @@
 
         </script>
         
-        <script type="text/javascript">
-    $().ready(function(){
-        $('[rel="tooltip"]').tooltip();
-
-    });
-
-    function rotateCard(btn){
-        var $card = $(btn).closest('.card-container');
-        console.log($card);
-        if($card.hasClass('hover')){
-            $card.removeClass('hover');
-        } else {
-            $card.addClass('hover');
-        }
-    }
-</script>
-        
         <script>
 			
 			$('#profession').on('change',function(){
@@ -930,7 +902,7 @@
 				$.ajax({
 					
 					type	: 'post',
-					url		: '/GIT/welco-med/import/search_result.php',
+					url		: '/GIT/welco-med/import/select.php',
 					data	: {
 							profession_id	: $('#profession').val(),
 							offer_id	: $('#type').val(),
@@ -950,7 +922,7 @@
 				$.ajax({
 					
 					type	: 'post',
-					url		: '/git/welco-med/import/search_result.php',
+					url		: '/git/welco-med/import/select.php',
 					data	: {
 							profession_id	: $('#profession').val(),
 							offer_id	: $('#type').val(),
@@ -970,7 +942,7 @@
 				$.ajax({
 					
 					type	: 'post',
-					url		: '/GIT/welco-med/import/search_result.php',
+					url		: '/GIT/welco-med/import/select.php',
 					data	: {
 							profession_id	: $('#profession').val(),
 							offer_id	: $('#type').val(),

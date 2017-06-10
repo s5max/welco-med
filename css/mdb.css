@@ -8778,16 +8778,27 @@ button, html [type="button"], [type="reset"], [type="submit"] {
   -o-border-radius: 10em;
   border-radius: 10em; }
 
-  .bienvenue {
-    background-color: #ff9100 !important;
-    border-color: #ff5f00 !important;
-  }
-  .bienvenue:hover, .bienvenue:focus {
+.wmregister {
+  background-color: #fff !important;
+  border-color: #2e6da4 !important;
+  color: #3b444c !important;
+}
+.wmregister:hover, .wmregister:focus {
+  background-color: #2d8ba9 !important;
+  color: #fff !important;
+}
+.wmlogin {
+  background-color: #ff9100 !important;
+  border-color: #ff5f00 !important;
+  color: #3b444c !important;
+}
+.wmlogin:hover, .wmlogin:focus {
   background-color: #ff5f00 !important;
-  }
-  .fa-heartbeat {
-    color: #ff9100 !important;
-  }
+  color: #fff !important;
+}
+.fa-heartbeat {
+  color: #ff9100 !important;
+}
 
 .nav-pills.md-pills .nav-item .active {
   border: none;
