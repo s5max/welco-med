@@ -22,24 +22,24 @@
     }
 
     if(isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id'])){
-    $user_id = (int) $_GET['id'];
+    $ad_id = (int) $_GET['id'];
 
     // On sélectionne l'utilisateur pour être sur qu'il existe et faire un rappel
-    $select = $bdd->prepare('SELECT * FROM user WHERE id = :idUser');
-    $select->bindValue(':idUser', $user_id, PDO::PARAM_INT);
+    $select = $bdd->prepare('SELECT * FROM ad WHERE id = :id');
+    $select->bindValue(':id', $ad_id, PDO::PARAM_INT);
 
     if($select->execute()){
-        $my_user = $select->fetch(PDO::FETCH_ASSOC);
+        $my_ad = $select->fetch(PDO::FETCH_ASSOC);
     }
     if(!empty($_POST)){
         // Si la valeur du champ caché ayant pour name="action" est égale a delete, alors je supprime
         if(isset($_POST['action']) && $_POST['action'] === 'delete'){
-            $delete = $bdd->prepare('DELETE FROM user WHERE id = :idUser');
-            $delete->bindValue(':idUser', $user_id, PDO::PARAM_INT);
+            $delete = $bdd->prepare('DELETE FROM ad WHERE id = :id');
+            $delete->bindValue(':id', $ad_id, PDO::PARAM_INT);
 
             if($delete->execute()){
-                $success = '<div class="alert alert-success">L\'utilisateur a été supprimé !</div>';
-                header("refresh:5;url=../adm_users.php");
+                $success = '<div class="alert alert-success">L\'annonce a été supprimé !</div>';
+                header("refresh:5;url=../adm_ads.php");
             }
             else {
                 var_dump($delete->errorInfo()); 
@@ -106,10 +106,10 @@
                         <li>
                             <a href="../home.php"><i class="fa fa-fw fa-dashboard"></i> Panneau D'Administration</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="../adm_users.php"><i class="fa fa-fw fa-user"></i> Utilisateurs</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="../adm_ads.php"><i class="fa fa-fw fa-cutlery"></i> Annonces</a>
                         </li>
                         <li>
@@ -141,22 +141,22 @@
                             </h1>
                             <ol class="breadcrumb">
                                 <li class="active">
-                                    <i class="fa fa-dashboard"> Supprimer l'utilisateur</i> 
+                                    <i class="fa fa-dashboard"> Supprimer l'annonce</i> 
                                 </li>
                             </ol>
                         </div>
                     </div>
                     <!-- /.row -->
             
-                    <?php if(!isset($my_user) || empty($my_user)): ?>
-                        <p style="color:red">Désolé, aucun utilisateur correspondant</p>
+                    <?php if(!isset($my_ad) || empty($my_ad)): ?>
+                        <p style="color:red">Désolé, aucune annonce correspondant</p>
         
                     <?php elseif(isset($success)): ?>
                         <?php echo $success; ?>
 
                     <?php else: ?>
                     <div class="col-xs-12 deleteuser">
-                        <h2>Voulez-vous supprimer : <?=$my_user['firstname'].' '.$my_user['lastname']. ' - '.$my_user['email'];?></h2>
+                        <h2>Voulez-vous supprimer cette annonce ?</h2>
 
                     <form method="post">
                         
@@ -164,7 +164,7 @@
 
                         <!-- history.back() permet de revenir à la page précédente -->
                         <button type="button" class="btn btn-default" onclick="javascript:history.back();">Annuler</button>
-                        <input type="submit" class="btn btn-primary" value="Supprimer cet utilisateur">
+                        <input type="submit" class="btn btn-primary" value="Supprimer cette annonce">
                     </form>
                     </div>
 

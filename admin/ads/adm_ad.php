@@ -18,37 +18,25 @@
             die; // alias de exit(); => die('Hello world');
         }
     }   else {
-        header('location: ../../home.php');
+        header('location: ../home.php');
     }
 
-    if(isset($_GET['id']) && !empty($_GET['id']) && is_numeric($_GET['id'])){
-    $user_id = (int) $_GET['id'];
+    if(isset($_GET['id']) && !empty($_GET['id'])){
 
-    // On sélectionne l'utilisateur pour être sur qu'il existe et faire un rappel
-    $select = $bdd->prepare('SELECT * FROM user WHERE id = :idUser');
-    $select->bindValue(':idUser', $user_id, PDO::PARAM_INT);
+        $adId = (int) $_GET['id'];
 
-    if($select->execute()){
-        $my_user = $select->fetch(PDO::FETCH_ASSOC);
-    }
-    if(!empty($_POST)){
-        // Si la valeur du champ caché ayant pour name="action" est égale a delete, alors je supprime
-        if(isset($_POST['action']) && $_POST['action'] === 'delete'){
-            $delete = $bdd->prepare('DELETE FROM user WHERE id = :idUser');
-            $delete->bindValue(':idUser', $user_id, PDO::PARAM_INT);
+        $select = $bdd->prepare('SELECT *, a.id AS id_ad, a.date_create AS offerdate FROM ad AS a JOIN (user AS u, profession AS p, offer AS o, city AS c) ON (u.id=a.user_id AND p.id=a.profession_id AND o.id=a.offer_id AND c.id=a.city_id) WHERE a.id = :id_ad');
+        $select->bindValue(':id_ad', $adId, PDO::PARAM_INT);
 
-            if($delete->execute()){
-                $success = '<div class="alert alert-success">L\'utilisateur a été supprimé !</div>';
-                header("refresh:5;url=../adm_users.php");
-            }
-            else {
-                var_dump($delete->errorInfo()); 
-                die;
-            }
+        if($select->execute()){
+            $ads = $select->fetch(PDO::FETCH_ASSOC);
+        }
+        else {
+            // Erreur de développement
+            var_dump($ads->errorInfo());
+            die; // alias de exit(); => die('Hello world');
         }
     }
-}
-
 ?><!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -106,10 +94,10 @@
                         <li>
                             <a href="../home.php"><i class="fa fa-fw fa-dashboard"></i> Panneau D'Administration</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="../adm_users.php"><i class="fa fa-fw fa-user"></i> Utilisateurs</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="../adm_ads.php"><i class="fa fa-fw fa-cutlery"></i> Annonces</a>
                         </li>
                         <li>
@@ -130,7 +118,7 @@
             </nav>
 
             <div id="page-wrapper">
-
+            
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
@@ -141,36 +129,78 @@
                             </h1>
                             <ol class="breadcrumb">
                                 <li class="active">
-                                    <i class="fa fa-dashboard"> Supprimer l'utilisateur</i> 
+                                    <i class="fa fa-dashboard"> Détail de l'annonce</i> 
                                 </li>
                             </ol>
                         </div>
                     </div>
                     <!-- /.row -->
-            
-                    <?php if(!isset($my_user) || empty($my_user)): ?>
-                        <p style="color:red">Désolé, aucun utilisateur correspondant</p>
-        
-                    <?php elseif(isset($success)): ?>
-                        <?php echo $success; ?>
 
-                    <?php else: ?>
-                    <div class="col-xs-12 deleteuser">
-                        <h2>Voulez-vous supprimer : <?=$my_user['firstname'].' '.$my_user['lastname']. ' - '.$my_user['email'];?></h2>
+                    <?php if(!empty($ads)): ?>
+                    <div class="col-md-6">
+                        <div class="col-md-12 panel panel-default r-p">
+                            <div class="panel-heading">
+                                    <h1 class="panel-title"><i class="fa fa-info-circle fa-fw"></i> <?php echo ucfirst($ads['kind']); ?></h1>
+                            </div>
+                            <h2 class="wmpad"><?php echo ucfirst($ads['type']); ?></h2>
 
-                    <form method="post">
-                        
-                        <input type="hidden" name="action" value="delete">
+                            <ol class="breadcrumb">
+                                <li class="active">
+                                    <h4>Profession :</h4>
+                                </li>
+                            </ol>
+                            <h4 class="wmpad"><?php echo $ads['speciality']; ?></h4>
+                               
 
-                        <!-- history.back() permet de revenir à la page précédente -->
-                        <button type="button" class="btn btn-default" onclick="javascript:history.back();">Annuler</button>
-                        <input type="submit" class="btn btn-primary" value="Supprimer cet utilisateur">
-                    </form>
+                            <ol class="breadcrumb">
+                                <li class="active">
+                                    <h4>Ville :</h4>
+                                </li>
+                            </ol>
+                            <h4 class="wmpad"><?php echo $ads['name']; ?></h4>
+                               
+                            <ol class="breadcrumb">
+                                <li class="active">
+                                    <h4>Détail :</h4>
+                                </li>
+                            </ol>
+                            <h4 class="wmpad"><?php echo $ads['detail']; ?></h4>
+                        </div>
                     </div>
 
-                    <?php endif; ?>
+                    <div class="col-md-6">
+                        <div class="col-md-12 panel panel-default r-p">
+                            <div class="panel-heading">
+                                    <h1 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Date de publication</h1>
+                            </div>
+                            <h4 class="wmpad"><?php $date=date_create($ads['offerdate']); echo date_format($date,"Y/m/d H:i:s"); ?></h4>
 
-                </div>
+                            <ol class="breadcrumb">
+                                <li class="active">
+                                    <h4>Utilisateur :</h4>
+                                </li>
+                            </ol>
+                            <a href="../users/adm_user.php?id=<?=$ads['user_id']; ?>">
+                                <h4 class="wmpad"><?php echo $ads['lastname'].' '.$ads['firstname']; ?></h4>
+                            </a> 
+
+                            <ol class="breadcrumb">
+                                <li class="active">
+                                    <h4>Email :</h4>
+                                </li>
+                            </ol>
+                            <h4 class="wmpad"><?php echo '<a href="mailto:'.$ads['email'].'">'.$ads['email'].'</a>'; ?></h4>
+                               
+                            <ol class="breadcrumb">
+                                <li class="active">
+                                    <h4>Téléphone :</h4>
+                                </li>
+                            </ol>
+                            <h4 class="wmpad"><?php echo $ads['telephone']; ?></h4>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                    
             </div>
             <!-- /#page-wrapper -->
 

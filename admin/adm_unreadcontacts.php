@@ -39,13 +39,13 @@
                         <li>
                             <a href="home.php"><i class="fa fa-fw fa-dashboard"></i> Panneau D'Administration</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="adm_users.php"><i class="fa fa-fw fa-user"></i> Utilisateurs</a>
                         </li>
                         <li>
                             <a href="adm_ads.php"><i class="fa fa-fw fa-cutlery"></i> Annonces</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-envelope fa-arrows-v"></i> Contacts <i class="fa fa-fw fa-caret-down"></i></a>
                             <ul id="demo" class="collapse">
                                 <li>

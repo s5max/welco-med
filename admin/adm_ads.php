@@ -21,6 +21,15 @@
         header('location: ../home.php');
     }
 
+    $select = $bdd->prepare('SELECT *, a.id AS id_ad FROM ad AS a JOIN (user AS u, profession AS p, offer AS o, city AS c) ON (u.id=a.user_id AND p.id=a.profession_id AND o.id=a.offer_id AND c.id=a.city_id)');
+
+    if($select->execute()){
+        $ads = $select->fetchAll(PDO::FETCH_ASSOC);
+    }
+    else {
+        echo 'Une erreur s\'est produite!';
+        die; //alias de exit(); => die('Hello World');
+    }
 ?>
 <?php include '../include/adminhead.php'; ?>
 <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -71,6 +80,41 @@
                 </div>
                 <!-- /.row -->
                 
+                <table class="table table-inverse table-responsive">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Utilisateur</th>
+                                <th>Profession</th>
+                                <th>Type d'offre</th>
+                                <th>Ville</th>
+                                <th>Détail</th>
+                                <th>Supprimer</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <!-- foreach permettant d'avoir une ligne <tr> par ligne SQL -->
+                            <?php foreach($ads as $ad): ?>
+
+                                <tr>
+                                    <td><?=$ad['id_ad']; ?></td>
+                                    <td><?=$ad['lastname'].' '.$ad['firstname']; ?></td>
+                                    <td><?=$ad['speciality']; ?></td>
+                                    <td><?=ucfirst($ad['kind']).' '.ucfirst($ad['type']); ?></td>
+                                    <td><?=$ad['name']; ?></td>
+                                    <td>
+                                        <a href="ads/adm_ad.php?id=<?=$ad['id_ad']; ?>"><i class="fa fa-id-card" aria-hidden="true"></i></a>
+                                    </td>
+                                    <td>
+                                        <!-- view_menu.php?id=6 -->
+                                        <a href="ads/adm_addelete.php?id=<?=$ad['id_ad']; ?>" id="deleteb"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+                            
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
             </div>
                 
 <?php include '../include/adminfooter.php'; ?>

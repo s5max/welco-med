@@ -191,9 +191,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-user"></i> <?php echo $user['firstname'].' '.$user['lastname'];?> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>
+                            <!-- <li>
                                 <a href="#"><i class="fa fa-fw fa-user"></i> Profil</a>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="../adm_unreadcontacts.php"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
                             </li>
