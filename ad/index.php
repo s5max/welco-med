@@ -424,7 +424,7 @@
 												<?php foreach ($cityAvailable as $key => $value): 
 														if(in_array($value['id'],$cityList)){
 												?>
-													<option value="<?=$value['id'];?>"><?=$value['name'];?></option>
+													<option value="<?=$value['id'];?>"><?=$value['speciality'];?></option>
 												<?php	}
 															endforeach; 
 												?>

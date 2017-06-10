@@ -72,7 +72,7 @@
 				<div class="cover normalcover">
 
 					<h3 class="name"><?= $v['firstname']?></h3>
-						<p class="profession"><?= $v['profession']?></p>
+						<p class="profession"><?= $v['speciality']?></p>
 			   </div>
 
 
@@ -94,35 +94,84 @@
 				</div>
 				<div class="content">
 					<div class="main">
+						<?php if(isset($d['company'])){ echo '<p>'.$d['company'];} ?>
 						<p>Heures d'activités : <?=$d['opening'].' à '.$d['closing']?></p>
-						<p class="text-center"><?= $d['description']?><br>Domicile/Cabinet<br><?= $d['exercise']?><br>Nbre de praticiens : <?= $d['nbPraticioner']?><br>Logiciel utilisé : <?=$d['software']?></p>
+						<p class="text-center"><?= $d['description']?><br>
+						Visite : <?php if(isset($d['office']) && $d['office'] == 'on'){ echo'Cabinet' } if(isset($d['home']) && $d['office'] == 'on'){ echo'Domicile' } ?>
+						Domicile/Cabinet<br><?= $d['exercise']?><br>Nbre de praticiens : <?= $d['nbPraticioner']?><br>Logiciel utilisé : <?=$d['software']?></p>
 
 						<div class="stats-container">
 						   <?php if(isset($d['sales'])){
 						   			echo'<div class="stats">
-								<h4>CA</h4>
-								<p>
-									Annuel
-								</p></div><div class="stats">
 								<h4>'.$d['sales'].'</h4>
 								<p>
-									Patients/jour
+									Chiffre d\'affaires
 								</p>
 							</div>';
 								}
 							?>
-							<div class="stats">
-								<h4><?=$d['patient']?></h4>
+							
+							<?php if(isset($d['partner'])){
+						   			echo'<div class="stats">
+								<h4>'.$d['partner'].'</h4>
 								<p>
-									Rétrocession
+									Nbre d\'associés
 								</p>
-							</div>
-							<div class="stats">
-								<h4><?=$d['hour']?></h4>
+							</div>';
+								}
+							?>
+							
+							<?php if(isset($d['contract'])){
+						   			echo'<div class="stats">
+								<h4>'.$d['contract'].'</h4>
 								<p>
-									Hrs/semaine
+									Type de contrat 
 								</p>
-							</div>
+							</div>';
+								}
+							?>
+							
+							<?php if(isset($d['Type_de_journée'])){
+						   			echo'<div class="stats">
+								<h4>'.$d['Type_de_journée'].'</h4>
+								<p>
+									  
+								</p>
+							</div>';
+								}
+							?>
+							
+							<?php if(isset($d['salary'])){
+						   			echo'<div class="stats">
+								<h4>'.$d['salary'].'</h4>
+								<p>
+									Salaire
+								</p>
+							</div>';
+								}
+							?>
+							
+							<?php if(isset($d['retrocession'])){
+						   			echo'<div class="stats">
+								<h4>'.$d['retrocession'].'</h4>
+								<p>
+									Retrocession
+								</p>
+							</div>';
+								}
+							?>
+							
+							<?php if(isset($d['hour'])){
+						   			echo'<div class="stats">
+								<h4>'.$d['hour'].'</h4>
+								<p>
+									Heures/semaine
+								</p>
+							</div>';
+								}
+							?>
+							
+							
 						</div>
 
 					</div>

@@ -138,7 +138,7 @@
                                 <a class="nav-link" href="#home">Accueil <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#features">Voir les offres</a>
+                                <a class="nav-link" href="ad/index.php">Voir les offres</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#footer" data-offset="100">Contactez-nous</a>
@@ -203,9 +203,11 @@
                                         </div>
                                     </div>
                                     <h2 class="font-up white-text mb-2 hwelcomed">Une expérience libérale sous le Soleil de Martinique</h2>
-                                    <a href="#" class="btn wmregister" data-offset="100">S'inscrire</a>
+                                    <a href="#" class="btn wmregister" data-offset="100" data-toggle="modal" data-target="#modal-reservation">S'inscrire</a>
 
-                                    <a href="#" class="btn wmlogin" data-offset="100">Se connecter</a>
+                                    <a href="#" class="btn wmlogin" data-offset="100" data-toggle="modal" data-target="#modal-log">Se connecter</a>
+                                    
+                                    <a href="ad/index.php" class="btn wmregister" data-offset="100">Rechercher parmi les Offres</a>
                                 </div>
                             </div>
                         </div>
@@ -369,7 +371,7 @@
                                                 <?php foreach ($professionAvailable as $value): 
 														if(in_array($value['id'],$professionList)){
 												?>
-                                                    <option value="<?=$value['id'];?>"><?=$value['name'];?></option>
+                                                    <option value="<?=$value['id'];?>"><?=$value['speciality'];?></option>
                                                 <?php 	}
 													   endforeach; 
 												?>

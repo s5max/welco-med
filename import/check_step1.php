@@ -42,7 +42,7 @@ if(!empty($_POST)){
 	
 		if(count($error) === 0){
 			
-//			$_SESSION['post']['info'][] = $post['user']['id'];
+			$_SESSION['post']['info']['user_id'] = $_SESSION['user']['id'];
 			$_SESSION['post']['info']['type'] = $post['type'];
 			$_SESSION['post']['info']['profession'] = $post['profession'];
 			$_SESSION['post']['info']['city'] = $post['city'];

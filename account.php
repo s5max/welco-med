@@ -2,7 +2,7 @@
     require('include/connect.php');
     require('include/header.php');
 
-	$_SESSION['user'] = ['id'=>1,'firstname'=>'Moi','email'=>'user@mail.com','telephone'=>'0601020304'];
+//	$_SESSION['user'] = ['id'=>1,'firstname'=>'Moi','email'=>'user@mail.com','telephone'=>'0601020304'];
 
 //    if(isset($_SESSION['id']) && !empty($_SESSION['id'])){
 //
