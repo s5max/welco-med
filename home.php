@@ -683,7 +683,7 @@
                         <div class="col-xl-5 offset-xl-1 col-lg-6 wow fadeIn" data-wow-delay="0.4s">
 
                             <!--Image-->
-                            <img src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20%2856%29.jpg" class="img-fluid" alt="My photo">
+                            <img src="img/wmcommunity.jpg" class="img-fluid" alt="My photo">
 
                         </div>
                         <!--/Column column-->
