@@ -411,6 +411,19 @@
                         
                     </form>
                     </div>
+                    
+                    <div class="row">
+                            <h1 class="title normaltitle">Résultat de votre recherche</h1>
+                                <div class="col-sm-12">
+                                    <div class="col-md-12" id="search_result">
+
+                                    
+                                    <!--         Résultat de la recherche   	 -->
+        
+    
+                                    </div>
+                                </div>
+						</div>
 
                 </section>
                 <!--/Section: Features v.4-->
@@ -893,6 +906,23 @@
 
         </script>
         
+        <script type="text/javascript">
+    $().ready(function(){
+        $('[rel="tooltip"]').tooltip();
+
+    });
+
+    function rotateCard(btn){
+        var $card = $(btn).closest('.card-container');
+        console.log($card);
+        if($card.hasClass('hover')){
+            $card.removeClass('hover');
+        } else {
+            $card.addClass('hover');
+        }
+    }
+</script>
+        
         <script>
 			
 			$('#profession').on('change',function(){
@@ -900,7 +930,7 @@
 				$.ajax({
 					
 					type	: 'post',
-					url		: '/GIT/welco-med/import/select.php',
+					url		: '/GIT/welco-med/import/search_result.php',
 					data	: {
 							profession_id	: $('#profession').val(),
 							offer_id	: $('#type').val(),
@@ -920,7 +950,7 @@
 				$.ajax({
 					
 					type	: 'post',
-					url		: '/git/welco-med/import/select.php',
+					url		: '/git/welco-med/import/search_result.php',
 					data	: {
 							profession_id	: $('#profession').val(),
 							offer_id	: $('#type').val(),
@@ -940,7 +970,7 @@
 				$.ajax({
 					
 					type	: 'post',
-					url		: '/GIT/welco-med/import/select.php',
+					url		: '/GIT/welco-med/import/search_result.php',
 					data	: {
 							profession_id	: $('#profession').val(),
 							offer_id	: $('#type').val(),

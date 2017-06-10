@@ -22,7 +22,7 @@
                                 <?php echo '<a class="nav-link" href="home.php">Accueil</a>';?>
                             </li>
                             <li class="nav-item">
-                                <?php echo '<a class="nav-link" href="ad/ad_list.php">Voir les offres</a>';?>
+                                <?php echo '<a class="nav-link" href="ad/index.php">Voir les offres</a>';?>
                             </li>
                             <li class="nav-item">
                                 <?php echo '<a class="nav-link" href="contact.php">Contactez-nous</a>';?>
