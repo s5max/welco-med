@@ -6,7 +6,7 @@
 		
 		$post = array_map('trim',array_map('strip_tags',$_POST));
 
-		require('../include/connect.php');
+		require('../../include/connect.php');
 		
 
 		if(isset($post['profession_id']) && isset($post['offer_id']) && isset($post['city_id'])){
