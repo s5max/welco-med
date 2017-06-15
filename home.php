@@ -718,8 +718,8 @@
                                 </div>
 
                                 <!--Content-->
-                                <h4>Anna Deynah</h4>
-                                <p><i class="fa fa-quote-left"></i> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod eos id officiis hic tenetur quae quaerat ad velit ab.</p>
+                                <h4>Antoine</h4>
+                                <p><i class="fa fa-quote-left"></i> "Pourquoi chercher les informations sur différents supports alors qu'ici on a tout" </p>
                             </div>
                         </div>
                         <!--/First column-->
@@ -733,8 +733,8 @@
                                 </div>
 
                                 <!--Content-->
-                                <h4>John Doe</h4>
-                                <p><i class="fa fa-quote-left"></i> Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi.</p>
+                                <h4>Louise</h4>
+                                <p><i class="fa fa-quote-left"></i> "Louer un appart et une voiture au mois en Martinique ça peut revenir assez cher! Bénéficier des réductions c'est top" .</p>
                             </div>
                         </div>
                         <!--/Second column-->
@@ -747,8 +747,8 @@
                                     <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(19).jpg" class="rounded-circle img-fluid">
                                 </div>
                                 <!--Content-->
-                                <h4>Maria Kate</h4>
-                                <p><i class="fa fa-quote-left"></i> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.</p>
+                                <h4>Charlotte</h4>
+                                <p><i class="fa fa-quote-left"></i> "J'ai posté une offre de remplacement sur les réseaux sociaux mais je devais régulièrement "liker" le post pour qu'il soit bien vu... avec Welcomed c'est plus simple" </p>
 
                             </div>
                         </div>
